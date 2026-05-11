@@ -45,7 +45,7 @@ class UserGroupModel extends Model {
 
     public function addMember(int $groupId, int $userId): void {
         if (!$this->isMember($groupId, $userId)) {
-            $this->insert(['id_group' => $groupId, 'id_user' => $userId]);
+            $this->insert(['id_group' => $groupId, 'id_user' => $userId, 'member_since' => time()]);
         }
     }
 

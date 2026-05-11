@@ -19,7 +19,7 @@ class AuthController {
 
     public function login() {
         if (AccountChecker::logged()) {
-            header("Location: /home/");
+            header("Location: /home/index");
             exit();
         }
 
@@ -118,7 +118,7 @@ class AuthController {
 
     public function TFA() {
         if (AccountChecker::logged()) {
-            header('Location: /home/');
+            header('Location: /home/index');
             exit;
         }
 
@@ -137,7 +137,7 @@ class AuthController {
                 $_SESSION['last_name']  = $user['last_name']  ?? '';
                 $_SESSION['email']      = $user['email']      ?? '';
                 SessionManager::start($userId);
-                header('Location: /home/');
+                header('Location: /home/index');
                 exit;
             }
             $messages['general'][] = 'Code invalide. Veuillez réessayer.';

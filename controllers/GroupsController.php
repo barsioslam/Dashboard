@@ -28,10 +28,10 @@ class GroupsController {
     }
 
     public function list(): void {
-        $search   = trim($_GET['q'] ?? '');
-        $page     = max(1, (int) ($_GET['page'] ?? 1));
-        $perPage  = 20;
-        $offset   = ($page - 1) * $perPage;
+        $search    = trim($_GET['q'] ?? '');
+        $grouppage = max(1, (int) ($_GET['page'] ?? 1));
+        $perPage   = 20;
+        $offset    = ($grouppage - 1) * $perPage;
 
         $total  = $this->groupModel->countFiltered($search);
         $groups = $this->groupModel->getAllWithMemberCount($perPage, $offset, $search);
@@ -46,7 +46,7 @@ class GroupsController {
             'layout'         => 'dashboard',
         ];
 
-        new Genfile('groups/list', $pageData, compact('groups', 'total', 'search', 'page', 'pages'));
+        new Genfile('groups/list', $pageData, compact('groups', 'total', 'search', 'grouppage', 'pages'));
     }
 
     public function view(int $id): void {

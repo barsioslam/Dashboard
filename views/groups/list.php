@@ -77,24 +77,24 @@ $qsBase = $search ? '?q=' . urlencode($search) . '&' : '?';
 
     <?php if ($pages > 1): ?>
     <div class="card-footer" style="display:flex;align-items:center;gap:4px;justify-content:center;padding:12px;">
-        <?php if ($page > 1): ?>
-        <a href="/groups/list<?= $qsBase ?>page=<?= $page - 1 ?>" class="table-btn">
+        <?php if ($grouppage > 1): ?>
+        <a href="/groups/list<?= $qsBase ?>page=<?= $grouppage - 1 ?>" class="table-btn">
             <i class="ti ti-chevron-left"></i>
         </a>
         <?php endif; ?>
 
         <?php for ($p = 1; $p <= $pages; $p++):
-            if ($p === 1 || $p === $pages || abs($p - $page) <= 2):
+            if ($p === 1 || $p === $pages || abs($p - $grouppage) <= 2):
         ?>
         <a href="/groups/list<?= $qsBase ?>page=<?= $p ?>" class="table-btn <?= $p === $page ? 'blue' : '' ?>">
             <?= $p ?>
         </a>
-        <?php elseif (abs($p - $page) === 3): ?>
+        <?php elseif (abs($p - $grouppage) === 3): ?>
         <span style="color:var(--muted);padding:0 4px;">…</span>
         <?php endif; ?>
         <?php endfor; ?>
 
-        <?php if ($page < $pages): ?>
+        <?php if ($grouppage < $pages): ?>
         <a href="/groups/list<?= $qsBase ?>page=<?= $page + 1 ?>" class="table-btn">
             <i class="ti ti-chevron-right"></i>
         </a>
