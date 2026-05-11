@@ -24,7 +24,7 @@ class ProjectsController {
         $page = [
             'title'          => 'Projets — TaderLafe',
             'topbar_title'   => 'Projets',
-            'csslist'        => ['card', 'list', 'table'],
+            'csslist'        => ['card', 'list', 'tables'],
             'jspreloadlist'  => [],
             'jspostloadlist' => [],
             'layout'         => 'dashboard',
@@ -36,7 +36,7 @@ class ProjectsController {
         $page = [
             'title'          => 'Projet — TaderLafe',
             'topbar_title'   => 'Fiche projet',
-            'csslist'        => ['card', 'list', 'table'],
+            'csslist'        => ['card', 'list', 'tables'],
             'jspreloadlist'  => [],
             'jspostloadlist' => [],
             'layout'         => 'dashboard',
@@ -77,7 +77,7 @@ class ProjectsController {
         $page = [
             'title'          => 'Bugs — TaderLafe',
             'topbar_title'   => 'Bugs du projet',
-            'csslist'        => ['card', 'list', 'table'],
+            'csslist'        => ['card', 'list', 'tables'],
             'jspreloadlist'  => [],
             'jspostloadlist' => [],
             'layout'         => 'dashboard',

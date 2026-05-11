@@ -3,6 +3,7 @@
 use App\Utils\Text\Text;
 use App\Utils\Checker\AccountChecker;
 
+$sidebar_counts ??= [];
 // Récupère la section active depuis l'URL
 $currentSegment = explode('/', $_GET['url'] ?? 'dashboard/index');
 $activeSection  = $currentSegment[0] ?? 'dashboard';

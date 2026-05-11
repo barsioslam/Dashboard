@@ -22,7 +22,7 @@ class LogsController {
         $page = [
             'title'          => "Logs d'activité — TaderLafe",
             'topbar_title'   => "Logs d'activité",
-            'csslist'        => ['card', 'list', 'table'],
+            'csslist'        => ['card', 'list', 'tables'],
             'jspreloadlist'  => [],
             'jspostloadlist' => [],
             'layout'         => 'dashboard',

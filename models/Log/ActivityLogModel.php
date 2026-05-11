@@ -31,4 +31,12 @@ class ActivityLogModel extends Model {
         return $this->db->fetchAll();
     }
 
+    public function getForUser(int $userId, int $limit = 8): array {
+        $this->db->query(
+            'SELECT * FROM `activity_log` WHERE `user_id` = ? ORDER BY `activity_date` DESC LIMIT ' . (int) $limit,
+            [$userId]
+        );
+        return $this->db->fetchAll();
+    }
+
 }

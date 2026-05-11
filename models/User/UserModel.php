@@ -108,4 +108,58 @@ class UserModel extends Model {
         return $this->db->fetchAll();
     }
 
+    public function getAllWithRoles(int $limit, int $offset, string $search = '', string $status = ''): array {
+        $params = [];
+        $where  = [];
+        if ($search !== '') {
+            $like    = '%' . $search . '%';
+            $where[] = '(u.username LIKE ? OR u.email LIKE ? OR u.first_name LIKE ? OR u.last_name LIKE ?)';
+            $params  = [$like, $like, $like, $like];
+        }
+        if ($status === 'active') { $where[] = 'u.is_active = 1'; }
+        elseif ($status === 'inactive') { $where[] = 'u.is_active = 0'; }
+        $sql = 'SELECT u.id, u.username, u.first_name, u.last_name, u.email, u.is_active, u.created_at,
+                       r.id AS role_id, r.name AS role_name, r.color AS role_color
+                FROM `user` u
+                LEFT JOIN user_role ur ON ur.id_user = u.id
+                LEFT JOIN role r ON r.id = ur.id_role'
+             . ($where ? ' WHERE ' . implode(' AND ', $where) : '')
+             . ' ORDER BY u.created_at DESC'
+             . ' LIMIT ' . (int) $limit . ' OFFSET ' . (int) $offset;
+        $this->db->query($sql, $params);
+        return $this->db->fetchAll();
+    }
+
+    public function countFiltered(string $search = '', string $status = ''): int {
+        $params = [];
+        $where  = [];
+        if ($search !== '') {
+            $like    = '%' . $search . '%';
+            $where[] = '(u.username LIKE ? OR u.email LIKE ? OR u.first_name LIKE ? OR u.last_name LIKE ?)';
+            $params  = [$like, $like, $like, $like];
+        }
+        if ($status === 'active') { $where[] = 'u.is_active = 1'; }
+        elseif ($status === 'inactive') { $where[] = 'u.is_active = 0'; }
+        $this->db->query(
+            'SELECT COUNT(*) AS total FROM `user` u'
+            . ($where ? ' WHERE ' . implode(' AND ', $where) : ''),
+            $params
+        );
+        $result = $this->db->fetchAll();
+        return (int) ($result[0]['total'] ?? 0);
+    }
+
+    public function getWithRole(int $id): ?array {
+        $this->db->query(
+            'SELECT u.*, r.id AS role_id, r.name AS role_name, r.color AS role_color
+             FROM `user` u
+             LEFT JOIN user_role ur ON ur.id_user = u.id
+             LEFT JOIN role r ON r.id = ur.id_role
+             WHERE u.id = ?',
+            [$id]
+        );
+        $result = $this->db->fetchAll();
+        return $result[0] ?? null;
+    }
+
 }

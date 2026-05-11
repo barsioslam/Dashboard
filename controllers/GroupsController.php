@@ -23,7 +23,7 @@ class GroupsController {
         $page = [
             'title'          => 'Groupes — TaderLafe',
             'topbar_title'   => 'Groupes',
-            'csslist'        => ['card', 'list', 'table'],
+            'csslist'        => ['card', 'list', 'tables'],
             'jspreloadlist'  => [],
             'jspostloadlist' => [],
             'layout'         => 'dashboard',

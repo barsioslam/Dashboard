@@ -25,7 +25,7 @@ class FilesController {
         $page = [
             'title'          => 'Fichiers — TaderLafe',
             'topbar_title'   => 'Fichiers',
-            'csslist'        => ['card', 'list', 'table'],
+            'csslist'        => ['card', 'list', 'tables'],
             'jspreloadlist'  => [],
             'jspostloadlist' => [],
             'layout'         => 'dashboard',

@@ -23,7 +23,7 @@ class TodosController {
         $page = [
             'title'          => 'Todo Lists — TaderLafe',
             'topbar_title'   => 'Todo Lists',
-            'csslist'        => ['card', 'list', 'table'],
+            'csslist'        => ['card', 'list', 'tables'],
             'jspreloadlist'  => [],
             'jspostloadlist' => [],
             'layout'         => 'dashboard',

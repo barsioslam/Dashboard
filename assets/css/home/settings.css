@@ -111,6 +111,17 @@
     color: var(--muted);
 }
 
+.field-error {
+    font-size: 11px;
+    color: var(--danger);
+}
+
+.field.has-error input,
+.field.has-error select,
+.field.has-error textarea {
+    border-color: var(--danger);
+}
+
 .field-row {
     display: grid;
     grid-template-columns: 1fr 1fr;

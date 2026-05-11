@@ -33,6 +33,25 @@
     color: var(--muted);
 }
 
+/* ---- Page header with actions ---- */
+
+.page-header-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.page-header-row .page-header { margin-bottom: 0; }
+
+.page-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
 .row-2col {
     display: grid;
     grid-template-columns: 1.6fr 1fr;

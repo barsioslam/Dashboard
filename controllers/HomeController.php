@@ -77,6 +77,8 @@ class HomeController {
             'layout'         => 'dashboard',   // indique à Genfile d'utiliser les layouts dashboard
         ];
 
+        
+
         new Genfile('home/index', $page, compact(
             'stats', 'recent_users', 'recent_projects', 'recent_logs', 'sidebar_counts', 'sys_stats'
         ));
@@ -141,6 +143,26 @@ class HomeController {
                     $messages['success'][]  = 'Informations mises à jour avec succès.';
                 }
 
+            } elseif ($_POST['_section'] === 'password') {
+                $currentPassword = $_POST['current_password'] ?? '';
+                $newPassword     = $_POST['new_password']     ?? '';
+                $confirmPassword = $_POST['confirm_password'] ?? '';
+
+                $fullUser = $userModel->findById($userId);
+                if (!$fullUser || !password_verify($currentPassword, $fullUser['password'])) {
+                    $messages['current_password'][] = 'Mot de passe actuel incorrect.';
+                }
+                if (strlen($newPassword) < 12) {
+                    $messages['new_password'][] = 'Le nouveau mot de passe doit contenir au moins 12 caractères.';
+                }
+                if ($newPassword !== $confirmPassword) {
+                    $messages['confirm_password'][] = 'Les mots de passe ne correspondent pas.';
+                }
+                if (empty($messages)) {
+                    $userModel->updatePassword($userId, $newPassword);
+                    $messages['pwd_success'] = true;
+                }
+
             } elseif ($_POST['_section'] === '2fa_init') {
                 if (!$userModel->has2FAApp($userId)) {
                     $_SESSION['2fa_setup_secret'] = TOTP::generateSecret();
@@ -185,6 +207,10 @@ class HomeController {
                 (new UserSessionModel())->revokeAllExcept($currentToken, $userId);
                 $messages['sessions_revoked'] = true;
                 header('Location: /home/settings?tab=security');
+                exit;
+
+            } elseif ($_POST['_section'] === 'db_export') {
+                $this->exportDatabase();
                 exit;
             }
         }
@@ -241,6 +267,63 @@ class HomeController {
         }
 
         return $counts;
+    }
+
+    private function exportDatabase(): void {
+        $config = parse_ini_file(CONF_PATH . 'db.ini', true);
+        $host   = $config['database']['host'];
+        $dbName = $config['database']['name'];
+        $user   = $config['database']['user'];
+        $pass   = $config['database']['pass'];
+
+        $pdo = new \PDO(
+            "mysql:host=$host;dbname=$dbName;charset=utf8mb4",
+            $user,
+            $pass,
+            [\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION]
+        );
+
+        set_time_limit(300);
+        if (ob_get_level()) ob_end_clean();
+
+        $filename = $dbName . '_' . date('Y-m-d_His') . '.sql';
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename="' . $filename . '"');
+        header('Cache-Control: no-store');
+
+        $out = fopen('php://output', 'w');
+
+        fwrite($out, "-- TaderLafe — Export BDD\n");
+        fwrite($out, "-- Date    : " . date('Y-m-d H:i:s') . "\n");
+        fwrite($out, "-- Base    : $dbName\n\n");
+        fwrite($out, "SET FOREIGN_KEY_CHECKS = 0;\n\n");
+
+        $tables = $pdo->query('SHOW TABLES')->fetchAll(\PDO::FETCH_COLUMN);
+
+        foreach ($tables as $table) {
+            $create = $pdo->query("SHOW CREATE TABLE `$table`")->fetch(\PDO::FETCH_ASSOC);
+            fwrite($out, "-- ----------------------------------------\n");
+            fwrite($out, "-- Table : `$table`\n");
+            fwrite($out, "-- ----------------------------------------\n");
+            fwrite($out, "DROP TABLE IF EXISTS `$table`;\n");
+            fwrite($out, $create['Create Table'] . ";\n\n");
+
+            $rows = $pdo->query("SELECT * FROM `$table`")->fetchAll(\PDO::FETCH_ASSOC);
+            if (empty($rows)) continue;
+
+            $cols = '`' . implode('`, `', array_keys($rows[0])) . '`';
+            foreach ($rows as $row) {
+                $vals = array_map(
+                    fn($v) => $v === null ? 'NULL' : $pdo->quote((string) $v),
+                    $row
+                );
+                fwrite($out, "INSERT INTO `$table` ($cols) VALUES (" . implode(', ', $vals) . ");\n");
+            }
+            fwrite($out, "\n");
+        }
+
+        fwrite($out, "SET FOREIGN_KEY_CHECKS = 1;\n");
+        fclose($out);
     }
 
     /**

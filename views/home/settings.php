@@ -193,21 +193,38 @@ $currentToken   = $currentToken   ?? '';
         <!-- Mot de passe -->
         <div class="card" style="margin-top:16px">
             <div class="settings-section-title">Changer le mot de passe</div>
+
+            <?php if (!empty($messages['pwd_success'])): ?>
+            <div class="alert success">
+                <i class="ti ti-circle-check"></i> Mot de passe mis à jour avec succès.
+            </div>
+            <?php endif; ?>
+
             <form method="POST">
                 <input type="hidden" name="_section" value="password">
-                <div class="field">
+                <div class="field <?= !empty($messages['current_password']) ? 'has-error' : '' ?>">
                     <label>Mot de passe actuel</label>
-                    <input type="password" name="current_password" placeholder="••••••••••••">
+                    <input type="password" name="current_password" placeholder="••••••••••••" autocomplete="current-password">
+                    <?php if (!empty($messages['current_password'])): ?>
+                    <span class="field-error"><?= htmlspecialchars($messages['current_password'][0]) ?></span>
+                    <?php endif; ?>
                 </div>
                 <div class="field-row">
-                    <div class="field">
+                    <div class="field <?= !empty($messages['new_password']) ? 'has-error' : '' ?>">
                         <label>Nouveau mot de passe</label>
-                        <input type="password" name="new_password" placeholder="••••••••••••">
+                        <input type="password" name="new_password" placeholder="••••••••••••" autocomplete="new-password">
+                        <?php if (!empty($messages['new_password'])): ?>
+                        <span class="field-error"><?= htmlspecialchars($messages['new_password'][0]) ?></span>
+                        <?php else: ?>
                         <span class="field-hint">Minimum 12 caractères</span>
+                        <?php endif; ?>
                     </div>
-                    <div class="field">
+                    <div class="field <?= !empty($messages['confirm_password']) ? 'has-error' : '' ?>">
                         <label>Confirmer</label>
-                        <input type="password" name="confirm_password" placeholder="••••••••••••">
+                        <input type="password" name="confirm_password" placeholder="••••••••••••" autocomplete="new-password">
+                        <?php if (!empty($messages['confirm_password'])): ?>
+                        <span class="field-error"><?= htmlspecialchars($messages['confirm_password'][0]) ?></span>
+                        <?php endif; ?>
                     </div>
                 </div>
                 <div class="form-actions">
@@ -404,12 +421,15 @@ $currentToken   = $currentToken   ?? '';
             </div>
             <div class="toggle-row">
                 <div class="toggle-info">
-                    <div class="toggle-label" style="color:var(--danger)">Réinitialiser la base de données</div>
-                    <div class="toggle-sub">Supprime toutes les données utilisateurs. Action irréversible.</div>
+                    <div class="toggle-label">Exporter la base de données</div>
+                    <div class="toggle-sub">Télécharge un dump SQL complet (structure + données).</div>
                 </div>
-                <button class="btn-danger" type="button">
-                    <i class="ti ti-database-x"></i> Réinitialiser
-                </button>
+                <form method="POST">
+                    <input type="hidden" name="_section" value="db_export">
+                    <button type="submit" class="btn-secondary">
+                        <i class="ti ti-database-export"></i> Exporter
+                    </button>
+                </form>
             </div>
         </div>
 

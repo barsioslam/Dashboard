@@ -1,0 +1,192 @@
+/* ---- Field ---- */
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 14px;
+}
+
+.field:last-of-type { margin-bottom: 0; }
+
+.field label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.field input,
+.field select,
+.field textarea {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 9px 12px;
+    font-size: 13px;
+    color: var(--text);
+    font-family: var(--font-main);
+    outline: none;
+    transition: border-color .15s;
+    width: 100%;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus { border-color: var(--accent); }
+
+.field input::placeholder,
+.field textarea::placeholder { color: var(--muted); }
+
+.field textarea { resize: vertical; min-height: 80px; line-height: 1.5; }
+
+.field select option { background: var(--surface2); }
+
+.field-hint {
+    font-size: 11px;
+    color: var(--muted);
+}
+
+.field-error {
+    font-size: 11px;
+    color: var(--danger);
+}
+
+.field.has-error input,
+.field.has-error select,
+.field.has-error textarea { border-color: var(--danger); }
+
+/* ---- Field row ---- */
+
+.field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.field-row-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+}
+
+/* ---- Form section title ---- */
+
+.form-section-title {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+}
+
+/* ---- Form actions ---- */
+
+.form-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+}
+
+/* ---- Buttons ---- */
+
+.btn-save {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 18px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-weight: 500;
+    font-family: var(--font-main);
+    cursor: pointer;
+    transition: opacity .15s;
+    text-decoration: none;
+}
+
+.btn-save:hover { opacity: .85; }
+
+.btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: var(--surface2);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-weight: 500;
+    font-family: var(--font-main);
+    cursor: pointer;
+    transition: border-color .15s;
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+.btn-secondary:hover { border-color: var(--accent); color: var(--text); }
+
+.btn-danger {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: rgba(242, 95, 92, .1);
+    color: var(--danger);
+    border: 1px solid rgba(242, 95, 92, .3);
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-weight: 500;
+    font-family: var(--font-main);
+    cursor: pointer;
+    transition: background .15s;
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+.btn-danger:hover { background: rgba(242, 95, 92, .2); }
+
+/* ---- Alert ---- */
+
+.alert {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    margin-bottom: 14px;
+}
+
+.alert.success {
+    background: rgba(80, 200, 120, .1);
+    border: 1px solid rgba(80, 200, 120, .25);
+    color: var(--success);
+}
+
+.alert.error {
+    background: rgba(242, 95, 92, .1);
+    border: 1px solid rgba(242, 95, 92, .25);
+    color: var(--danger);
+}
+
+.alert.info {
+    background: rgba(79, 142, 247, .1);
+    border: 1px solid rgba(79, 142, 247, .25);
+    color: var(--accent);
+}
+
+.alert.warning {
+    background: rgba(245, 166, 35, .1);
+    border: 1px solid rgba(245, 166, 35, .25);
+    color: var(--warning);
+}

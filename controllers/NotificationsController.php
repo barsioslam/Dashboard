@@ -22,7 +22,7 @@ class NotificationsController {
         $page = [
             'title'          => 'Notifications — TaderLafe',
             'topbar_title'   => 'Notifications',
-            'csslist'        => ['card', 'list', 'table'],
+            'csslist'        => ['card', 'list', 'tables'],
             'jspreloadlist'  => [],
             'jspostloadlist' => [],
             'layout'         => 'dashboard',

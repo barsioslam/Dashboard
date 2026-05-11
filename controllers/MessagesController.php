@@ -24,7 +24,7 @@ class MessagesController {
         $page = [
             'title'          => 'Messages — TaderLafe',
             'topbar_title'   => 'Messages',
-            'csslist'        => ['card', 'list', 'table'],
+            'csslist'        => ['card', 'list', 'tables'],
             'jspreloadlist'  => [],
             'jspostloadlist' => [],
             'layout'         => 'dashboard',

@@ -24,7 +24,7 @@ class RolesController {
         $page = [
             'title'          => 'Rôles & Permissions — TaderLafe',
             'topbar_title'   => 'Rôles & Permissions',
-            'csslist'        => ['card', 'list', 'table'],
+            'csslist'        => ['card', 'list', 'tables'],
             'jspreloadlist'  => [],
             'jspostloadlist' => [],
             'layout'         => 'dashboard',
