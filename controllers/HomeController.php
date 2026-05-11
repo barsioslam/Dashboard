@@ -26,6 +26,19 @@ class HomeController {
             header('Location: /auth/login');
             exit;
         }
+        $this->syncSessionVars();
+    }
+
+    private function syncSessionVars(): void {
+        if (!isset($_SESSION['username']) && isset($_SESSION['user_id'])) {
+            $user = (new UserModel())->findById((int) $_SESSION['user_id']);
+            if ($user) {
+                $_SESSION['username']   = $user['username'];
+                $_SESSION['first_name'] = $user['first_name'] ?? '';
+                $_SESSION['last_name']  = $user['last_name']  ?? '';
+                $_SESSION['email']      = $user['email']      ?? '';
+            }
+        }
     }
 
     public function index(): void {
