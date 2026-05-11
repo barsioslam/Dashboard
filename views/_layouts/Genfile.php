@@ -21,12 +21,12 @@ class Genfile {
     private function genheader(array $page, array $vars = []) {
         $lang = $this->lang;
         extract($vars);
-        require_once VIEW_PATH . '_layouts/header.php';
+        require VIEW_PATH . '_layouts/header.php';
     }
 
     private function geneof(array $page) {
         $lang = $this->lang;
-        require_once VIEW_PATH . '_layouts/eof.php';
+        require VIEW_PATH . '_layouts/eof.php';
     }
 
 }
