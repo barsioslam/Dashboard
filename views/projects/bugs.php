@@ -79,6 +79,15 @@ $baseUrl = '/projects/bugs/' . (int) $project['id'];
                     <?= $bugCounts[BugStatusModel::IN_PROGRESS] ?>
                 </span>
             </a>
+            <a href="<?= $baseUrl ?>?status=<?= BugStatusModel::WAITING ?>"
+               class="filter-tab <?= $bugStatus === BugStatusModel::WAITING ? 'active' : '' ?>">
+                En attente
+                <span style="display:inline-flex;align-items:center;justify-content:center;
+                    background:#fef9c3;color:#854d0e;border-radius:10px;
+                    font-size:10px;min-width:16px;height:16px;padding:0 4px;margin-left:4px;">
+                    <?= $bugCounts[BugStatusModel::WAITING] ?>
+                </span>
+            </a>
             <a href="<?= $baseUrl ?>?status=<?= BugStatusModel::CLOSED ?>"
                class="filter-tab <?= $bugStatus === BugStatusModel::CLOSED ? 'active' : '' ?>">
                 Fermés
@@ -131,6 +140,14 @@ $baseUrl = '/projects/bugs/' . (int) $project['id'];
                         <input type="hidden" name="status" value="<?= BugStatusModel::IN_PROGRESS ?>">
                         <button type="submit" class="table-btn orange" title="Marquer en cours">
                             <i class="ti ti-progress"></i>
+                        </button>
+                    </form>
+                    <?php endif; ?>
+                    <?php if ($status !== BugStatusModel::WAITING): ?>
+                    <form method="POST" action="/projects/updateBugStatus/<?= (int) $bug['id'] ?>" style="display:inline;">
+                        <input type="hidden" name="status" value="<?= BugStatusModel::WAITING ?>">
+                        <button type="submit" class="table-btn yellow" title="Mettre en attente">
+                            <i class="ti ti-clock-pause"></i>
                         </button>
                     </form>
                     <?php endif; ?>

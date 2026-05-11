@@ -13,6 +13,9 @@ $totalBugs    = array_sum($bugCounts);
         <p class="page-sub">Fiche projet</p>
     </div>
     <div class="page-actions">
+        <a href="/files/project/<?= (int) $project['id'] ?>" class="btn-secondary">
+            <i class="ti ti-folders"></i> Fichiers
+        </a>
         <a href="/projects/bugs/<?= (int) $project['id'] ?>" class="btn-secondary">
             <i class="ti ti-bug"></i> Bugs
             <?php if ($bugCounts[BugStatusModel::OPEN] > 0): ?>
@@ -81,6 +84,7 @@ $totalBugs    = array_sum($bugCounts);
                     <div class="list-item-title" style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px;">
                         <span class="badge red"><?= $bugCounts[BugStatusModel::OPEN] ?> ouverts</span>
                         <span class="badge orange"><?= $bugCounts[BugStatusModel::IN_PROGRESS] ?> en cours</span>
+                        <span class="badge yellow"><?= $bugCounts[BugStatusModel::WAITING] ?> en attente</span>
                         <span class="badge green"><?= $bugCounts[BugStatusModel::CLOSED] ?> fermés</span>
                     </div>
                 </div>

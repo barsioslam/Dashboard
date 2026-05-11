@@ -45,7 +45,7 @@ class UserProjectModel extends Model {
 
     public function addMember(int $projectId, int $userId): void {
         if (!$this->isMember($projectId, $userId)) {
-            $this->insert(['project_id' => $projectId, 'user_id' => $userId]);
+            $this->insert(['project_id' => $projectId, 'user_id' => $userId, 'member_since' => time()]);
         }
     }
 

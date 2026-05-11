@@ -11,17 +11,20 @@ class BugStatusModel extends Model {
     // Status constants
     const OPEN        = 0;
     const IN_PROGRESS = 1;
-    const CLOSED      = 2;
+    const WAITING     = 2;
+    const CLOSED      = 3;
 
     const LABELS = [
         self::OPEN        => 'Ouvert',
         self::IN_PROGRESS => 'En cours',
+        self::WAITING     => 'En attente',
         self::CLOSED      => 'Fermé',
     ];
 
     const CSS_CLASS = [
         self::OPEN        => 'red',
         self::IN_PROGRESS => 'orange',
+        self::WAITING     => 'yellow',
         self::CLOSED      => 'green',
     ];
 

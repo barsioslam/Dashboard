@@ -69,12 +69,7 @@ class ProjectsController {
         $nonMembers = array_filter($allUsers, fn($u) => !in_array((int) $u['id'], $memberIds));
 
         $recentBugs = array_slice($this->bugModel->getForProject($id), 0, 5);
-
-        $bugCounts  = [
-            BugStatusModel::OPEN        => $this->bugModel->countForProject($id, BugStatusModel::OPEN),
-            BugStatusModel::IN_PROGRESS => $this->bugModel->countForProject($id, BugStatusModel::IN_PROGRESS),
-            BugStatusModel::CLOSED      => $this->bugModel->countForProject($id, BugStatusModel::CLOSED),
-        ];
+        $bugCounts  = $this->bugModel->countAllStatuses($id);
 
         $pageData = [
             'title'          => htmlspecialchars($project['name']) . ' — TaderLafe',
@@ -110,6 +105,7 @@ class ProjectsController {
                     'is_read_only' => $input['is_read_only'],
                     'created_at'  => time(),
                 ]);
+                $this->userProjectModel->addMember($newId, $this->currentUserId);
                 (new ActivityLogModel())->log('project_created', $this->currentUserId, $input['name']);
                 header('Location: /projects/view/' . $newId);
                 exit;
@@ -251,11 +247,7 @@ class ProjectsController {
         $bugStatusParam = $_GET['status'] ?? '';
         $bugStatus      = $bugStatusParam !== '' ? (int) $bugStatusParam : null;
         $bugs           = $this->bugModel->getForProject($id, $bugStatus);
-        $bugCounts      = [
-            BugStatusModel::OPEN        => $this->bugModel->countForProject($id, BugStatusModel::OPEN),
-            BugStatusModel::IN_PROGRESS => $this->bugModel->countForProject($id, BugStatusModel::IN_PROGRESS),
-            BugStatusModel::CLOSED      => $this->bugModel->countForProject($id, BugStatusModel::CLOSED),
-        ];
+        $bugCounts      = $this->bugModel->countAllStatuses($id);
 
         $pageData = [
             'title'          => 'Bugs — ' . htmlspecialchars($project['name']) . ' — TaderLafe',
@@ -280,19 +272,11 @@ class ProjectsController {
             exit;
         }
 
-        $title       = trim($_POST['title']       ?? '');
-        $description = trim($_POST['description'] ?? '');
+        $title   = trim($_POST['title']       ?? '');
+        $content = trim($_POST['description'] ?? '') ?: null;
 
         if (strlen($title) >= 2) {
-            $newBugId = $this->bugModel->insert([
-                'project_id' => $projectId,
-                'id_user'    => $this->currentUserId,
-                'title'      => $title,
-                'content'    => $description ?: null,
-                'status'     => BugStatusModel::OPEN,
-                'created_at' => time(),
-            ]);
-            (new BugStatusModel())->log($newBugId, BugStatusModel::OPEN, $this->currentUserId);
+            $this->bugModel->add($projectId, $this->currentUserId, $title, $content);
             (new ActivityLogModel())->log('bug_added', $this->currentUserId, $title, $project['name']);
         }
         header('Location: /projects/bugs/' . $projectId);
@@ -307,7 +291,7 @@ class ProjectsController {
         $bug    = $this->bugModel->getById($bugId);
         $status = (int) ($_POST['status'] ?? -1);
 
-        if ($bug && in_array($status, [BugStatusModel::OPEN, BugStatusModel::IN_PROGRESS, BugStatusModel::CLOSED])) {
+        if ($bug && array_key_exists($status, BugStatusModel::LABELS)) {
             $this->bugModel->updateStatus($bugId, $status, $this->currentUserId);
             (new ActivityLogModel())->log('bug_status_updated', $this->currentUserId, $bug['title'], BugStatusModel::label($status));
         }
