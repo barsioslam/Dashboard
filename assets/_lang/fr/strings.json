@@ -1,0 +1,114 @@
+{
+    "language": {
+        "name": "Français"
+    },
+    "crafteruniverse": {
+        "name": "Crafter Universe"
+    },
+    "general": {
+        "login": "Connexion",
+        "signin": "Inscription",
+        "logout": "Déconnexion",
+        "2FA": "Authentification à 2 facteurs"
+    },
+    "forms": {
+        "username": "Nom d'utilisateur",
+        "lastname": "Nom",
+        "firstname": "Prénom",
+        "email": "Adresse Email",
+        "phone": "Téléphone",
+        "city": {
+            "postal": "Code postal",
+            "name": "Ville",
+            "street": "Rue",
+            "number": "Numéro"
+        },
+        "password": "Mot de passe",
+        "repassword": "Répéter le mot de passe",
+        "incorrect": "Nom d'utilisateur ou mot de passe incorrect !"
+    },
+    "home": {
+        "layout": {
+            "navbar": {
+                "resources": "Ressources",
+                "transfer": "Transférer",
+                "transferlist": "Liste des transferts",
+                "transfernew": "Nouveau transfert"
+            }
+        },
+        "index": {
+            "title": "TaderLafe — Accueil",
+            "description": "Bienvenue sur TaderLafe !"
+        }
+    },
+    "auth": {
+        "login": {
+            "title": "TaderLafe — Connexion",
+            "description": "Connectez-vous à votre compte TaderLafe."
+        },
+        "logout": {
+            "title": "TaderLafe — Déconnexion",
+            "description": "Déconnexion de votre compte TaderLafe."
+        }
+    },
+    "transfer": {
+        "index": {
+            "title": "TaderLafe — Transfert de fichiers",
+            "description": "Transférez les fichiers de manière simple et sécurisée."
+        },
+        "new": {
+            "title": "TaderLafe — Nouveau transfert",
+            "description": "Page de transfert des fichiers."
+        },
+        "list": {
+            "title": "TaderLafe — Liste des transfert",
+            "description": "Liste des transfert effectués."
+        }
+    },
+    "error": {
+        "401": {
+            "title": "TaderLafe — Non autorisé",
+            "description": "Vous n'êtes pas autorisé à accéder à cette page.",
+            "message": {
+                "UNAUTHORIZED": "Vous n'êtes pas autorisé à accéder à cette page.",
+                "FORBIDDEN": "Vous n'êtes pas autorisé à accéder à cette page."
+            }
+        },
+        "403": {
+            "title": "TaderLafe — Non autorisé",
+            "description": "Vous n'êtes pas autorisé à accéder à cette page.",
+            "message": {
+                "UNAUTHORIZED": "Vous n'êtes pas autorisé à accéder à cette page.",
+                "FORBIDDEN": "Vous n'êtes pas autorisé à accéder à cette page."
+            }
+        },
+        "404": {
+            "title": "TaderLafe — Page introuvable",
+            "description": "La page que vous recherchez n'existe pas.",
+            "message": {
+                "CONTROLLER_NOT_FOUND": "Le contrôleur demandé est introuvable.",
+                "ACTION_NOT_FOUND": "L'action demandée est introuvable.",
+                "PAGE_NOT_FOUND": "La page que vous recherchez n'existe pas."
+            }
+        },
+        "500": {
+            "title": "TaderLafe — Non autorisé",
+            "description": "Une erreur interne du serveur s'est produite.",
+            "message": {
+                "SERVER_ERROR": "Une erreur interne du serveur s'est produite.",
+                "BAD_REQUEST": "La requête envoyée au serveur est incorrecte.",
+                "VALIDATION_ERROR": "Des erreurs de validation se sont produites.",
+                "DATABASE_ERROR": "Une erreur de base de données s'est produite.",
+                "UNKNOWN_ERROR": "Une erreur inconnue s'est produite."
+            }
+        },
+        "json": {
+            "message": {
+                "FILE_NOT_FOUND": "Le fichier JSON demandé est introuvable.",
+                "INVALID_JSON": "Le contenu JSON est invalide.",
+                "PATH_NOT_FOUND": "Le chemin spécifié dans le JSON est introuvable.",
+                "UNKNOWN_ERROR": "Une erreur inconnue s'est produite lors du traitement du JSON."
+            }
+        }
+    }
+}

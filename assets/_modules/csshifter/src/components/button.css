@@ -1,0 +1,56 @@
+/* BUTTON */
+.btn {
+    background-color: black;
+    border: 0px solid black;
+}
+.btn.primary {
+    background-color: var(--primary);
+}
+.btn.secondary {
+    background-color: var(--secondary);
+}
+.btn.success {
+    background-color: var(--success);
+}
+.btn.danger {
+    background-color: var(--danger);
+}
+.btn.warning {
+    background-color: var(--warning);
+}
+.btn.dark {
+    background-color: var(--dark);
+}
+.btn.light {
+    background-color: var(--light);
+}
+
+.btn.outline {
+    background-color: transparent;
+    border: 1px solid black;
+}
+.btn.outline.primary {
+    border: 1px solid var(--primary);
+}
+.btn.outline.secondary {
+    border: 1px solid var(--secondary);
+}
+.btn.outline.success {
+    border: 1px solid var(--success);
+}
+.btn.outline.danger {
+    border: 1px solid var(--danger);
+}
+.btn.outline.warning {
+    border: 1px solid var(--warning);
+}
+.btn.outline.dark {
+    border: 1px solid var(--dark);
+}
+.btn.outline.light {
+    border: 1px solid var(--light);
+}
+
+.btn.square {
+    aspect-ratio: 1/1;
+}

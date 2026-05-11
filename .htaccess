@@ -1,0 +1,22 @@
+RewriteEngine On
+DirectorySlash Off
+
+ErrorDocument 404 /error/error404
+
+# Ne jamais réécrire /assets/ (ni ses sous-dossiers)
+RewriteCond %{REQUEST_URI} ^/assets/
+RewriteRule ^ - [L]
+
+# Ignorer les fichiers et dossiers réels
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^ - [L]
+
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Cas avec préfixe langue (2 lettres entre / )
+RewriteRule ^([a-z]{2})/?$ index.php?lang=$1&url=index [QSA,L]
+RewriteRule ^([a-z]{2})/(.*)$ index.php?lang=$1&url=$2 [QSA,L]
+
+# Cas sans préfixe langue
+RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]

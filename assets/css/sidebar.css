@@ -1,0 +1,179 @@
+#sidebar {
+    width: var(--sidebar-w);
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    overflow-y: auto;
+    z-index: 100;
+}
+
+/* Trait lumineux sur le bord droit */
+#sidebar::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 1px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent 0%, var(--accent2) 40%, var(--accent) 60%, transparent 100%);
+    opacity: 0.25;
+    pointer-events: none;
+}
+
+/* Logo */
+.sidebar-logo {
+    padding: 22px 18px 18px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sidebar-logo-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, var(--accent2), var(--accent));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    flex-shrink: 0;
+}
+
+.sidebar-logo-text .name {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.sidebar-logo-text .sub {
+    font-size: 11px;
+    color: var(--muted);
+}
+
+/* Sections de nav */
+.nav-section {
+    padding: 16px 10px 4px;
+}
+
+.nav-section-label {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    padding: 0 8px;
+    margin-bottom: 4px;
+}
+
+/* Items */
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 10px;
+    border-radius: var(--radius-sm);
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 13.5px;
+    position: relative;
+    margin-bottom: 1px;
+    transition: background .15s, color .15s;
+}
+
+.nav-item:hover {
+    background: var(--surface2);
+    color: var(--text);
+}
+
+.nav-item.active {
+    background: rgba(79, 142, 247, .12);
+    color: var(--accent);
+}
+
+.nav-item.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 22%;
+    bottom: 22%;
+    width: 2.5px;
+    border-radius: 2px;
+    background: var(--accent);
+}
+
+.nav-item i {
+    font-size: 16px;
+    width: 18px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+/* Badges */
+.nav-badge {
+    margin-left: auto;
+    background: var(--accent);
+    color: #fff;
+    font-size: 10px;
+    padding: 1px 7px;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+.nav-badge.warn   { background: var(--warning); }
+.nav-badge.danger { background: var(--danger); }
+
+/* Footer utilisateur */
+.sidebar-footer {
+    margin-top: auto;
+    padding: 14px 12px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sidebar-footer .avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 7px;
+    background: linear-gradient(135deg, var(--accent2), var(--accent));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+    flex-shrink: 0;
+}
+
+.sidebar-footer .user-name {
+    font-size: 13px;
+    font-weight: 500;
+    flex: 1;
+}
+
+.sidebar-footer .user-role {
+    font-size: 11px;
+    color: var(--muted);
+}
+
+.sidebar-footer .logout-btn {
+    color: var(--muted);
+    font-size: 16px;
+    cursor: pointer;
+    transition: color .15s;
+}
+
+.sidebar-footer .logout-btn:hover { color: var(--danger); }

@@ -1,0 +1,123 @@
+{
+    "language": {
+        "name": "English"
+    },
+    "crafteruniverse": {
+        "name": "Crafter Universe"
+    },
+    "general": {
+        "login": "Login",
+        "signin": "Signin",
+        "logout": "Logout",
+        "2FA": "Two-Factor Authentication"
+    },
+    "forms": {
+        "username": "Username",
+        "lastname": "Last name",
+        "firstname": "First name",
+        "email": "Email",
+        "phone": "Phone number",
+        "city": {
+            "postal": "Postal code",
+            "name": "City",
+            "street": "Street",
+            "number": "Number"
+        },
+        "password": "Password",
+        "repassword": "Repeat password"
+    },
+    "home": {
+        "layout": {
+            "navbar": {
+                "resources": "Resources",
+                "marketplace": "Marketplace",
+                "documentation": "Documentation",
+                "tutorials": "Tutorials",
+                "devtools": "Developer Tools",
+                "community": "Community",
+                "discussions": "Discussions",
+                "forum": "Forum",
+                "events": "Events",
+                "madeby": "Made By",
+                "support": "Support",
+                "qna": "Q&A",
+                "gethelp": "Get Help",
+                "contact": "Contact Us"
+            }
+        },
+        "index": {
+            "title": "TaderLafe — Home",
+            "description": "Welcome to TaderLafe!"
+        }
+    },
+    "auth": {
+        "login": {
+            "title": "TaderLafe — Login",
+            "description": "Log in to your TaderLafe account."
+        },
+        "signin": {
+            "title": "TaderLafe — Signin",
+            "description": "Create a TaderLafe account."
+        },
+        "logout": {
+            "title": "TaderLafe — Logout",
+            "description": "Log out of your TaderLafe account."
+        },
+        "2FA": {
+            "title": "TaderLafe — Auth",
+            "description": "Two-Factor Authentication to secure your TaderLafe account."
+        }
+    },
+    "marketplace": {
+        "index": {
+            "title": "TaderLafe — Marketplace",
+            "description": "Discover the resources available on the TaderLafe Marketplace."
+        }
+    },
+    "error": {
+        "401": {
+            "title": "TaderLafe — Unauthorized",
+            "description": "You are not authorized to access this page.",
+            "message": {
+                "UNAUTHORIZED": "You are not authorized to access this page.",
+                "FORBIDDEN": "You are not authorized to access this page."
+            }
+        },
+        "403": {
+            "title": "TaderLafe — Forbidden",
+            "description": "You are not authorized to access this page.",
+            "message": {
+                "UNAUTHORIZED": "You are not authorized to access this page.",
+                "FORBIDDEN": "You are not authorized to access this page."
+            }
+        },
+        "404": {
+            "title": "TaderLafe — Not Found",
+            "description": "The page you are looking for does not exist.",
+            "message": {
+                "CONTROLLER_NOT_FOUND": "The requested controller is not found.",
+                "ACTION_NOT_FOUND": "The requested action is not found.",
+                "PAGE_NOT_FOUND": "The requested page is not found."
+            }
+        },
+        "500": {
+            "title": "TaderLafe — Server Error",
+            "description": "An internal server error has occurred.",
+            "message": {
+                "SERVER_ERROR": "An error occurred on the server.",
+                "BAD_REQUEST": "A bad request was made to the server.",
+                "VALIDATION_ERROR": "A validation error occurred.",
+                "DATABASE_ERROR": "A database error occurred.",
+                "UNKNOWN_ERROR": "An unknown error occurred."
+            }
+        },
+        "json": {
+            "message": {
+                "FILE_NOT_FOUND": "The specified JSON file was not found.",
+                "INVALID_JSON": "The JSON file is not valid.",
+                "PATH_NOT_FOUND": "The specified path in the JSON file was not found.",
+                "UNKNOWN_ERROR": "An unknown error occurred while processing the JSON file."
+            }
+        }
+    }
+}

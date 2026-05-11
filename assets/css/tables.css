@@ -1,0 +1,160 @@
+/* ---- Table wrap (scroll horizontal) ---- */
+
+.table-wrap {
+    overflow-x: auto;
+    width: 100%;
+}
+
+/* ---- Table container ---- */
+
+.table {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+/* ---- Row ---- */
+
+.table .row {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    transition: background .15s;
+}
+
+.table .row:last-child { border-bottom: none; }
+
+/* Header */
+
+.table .row.header {
+    background: transparent !important;
+}
+
+.table .row.header .cell,
+.table .row.header .element {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 9px 14px;
+}
+
+/* Data rows */
+
+.table .row:not(.header):hover { background: var(--surface2); }
+
+/* Zebra striping (optionnel : ajouter .striped sur .table) */
+
+.table.striped .row:not(.header):nth-child(even) {
+    background: rgba(255, 255, 255, .025);
+}
+
+.table.striped .row:not(.header):nth-child(even):hover {
+    background: var(--surface2);
+}
+
+/* ---- Cell ---- */
+
+.table .cell,
+.table .element {
+    flex: 1;
+    padding: 12px 14px;
+    font-size: 13px;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+}
+
+/* Modifiers */
+
+.table .cell.shrink,
+.table .element.shrink {
+    flex: 0 0 auto;
+}
+
+.table .cell.muted,
+.table .element.muted {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.table .cell.wrap,
+.table .element.wrap {
+    white-space: normal;
+    overflow: visible;
+}
+
+/* Actions column */
+
+.table .cell.actions,
+.table .element.actions {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding-left: 8px;
+}
+
+/* ---- Sortable header ---- */
+
+.table .row.header .cell.sortable,
+.table .row.header .element.sortable {
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: color .15s;
+}
+
+.table .row.header .cell.sortable:hover,
+.table .row.header .element.sortable:hover { color: var(--text); }
+
+.table .row.header .cell.sortable::after,
+.table .row.header .element.sortable::after {
+    content: '↕';
+    font-size: 10px;
+    opacity: .35;
+}
+
+.table .row.header .cell.sortable.asc::after,
+.table .row.header .element.sortable.asc::after  { content: '↑'; opacity: 1; color: var(--accent); }
+
+.table .row.header .cell.sortable.desc::after,
+.table .row.header .element.sortable.desc::after { content: '↓'; opacity: 1; color: var(--accent); }
+
+/* ---- Table action buttons ---- */
+
+.table-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: var(--radius-sm);
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 14px;
+    transition: background .15s, color .15s;
+    flex-shrink: 0;
+}
+
+.table-btn:hover         { background: var(--border);              color: var(--text); }
+.table-btn.blue:hover    { background: rgba(79,142,247,.12);       color: var(--accent); }
+.table-btn.green:hover   { background: rgba(34,201,122,.12);       color: var(--success); }
+.table-btn.orange:hover  { background: rgba(245,166,35,.12);       color: var(--warning); }
+.table-btn.danger:hover  { background: rgba(242,95,92,.12);        color: var(--danger); }
+
+/* ---- Empty state ---- */
+
+.table-empty {
+    padding: 36px 0;
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+}

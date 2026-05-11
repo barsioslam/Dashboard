@@ -1,0 +1,124 @@
+/* ---- List ---- */
+
+.list {
+    display: flex;
+    flex-direction: column;
+}
+
+.list-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.list-item:last-child { border-bottom: none; }
+
+/* ---- Prefixes ---- */
+
+/* Dot indicator */
+.list-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    align-self: flex-start;
+    margin-top: 5px;
+}
+
+/* Vertical color bar */
+.list-bar {
+    width: 4px;
+    height: 36px;
+    border-radius: 2px;
+    flex-shrink: 0;
+}
+
+/* Color variants for dot and bar */
+.list-dot.blue,  .list-bar.blue   { background: var(--accent); }
+.list-dot.purple,.list-bar.purple { background: var(--accent2); }
+.list-dot.green, .list-bar.green  { background: var(--success); }
+.list-dot.orange,.list-bar.orange { background: var(--warning); }
+.list-dot.red,   .list-bar.red    { background: var(--danger); }
+.list-dot.muted, .list-bar.muted  { background: var(--muted); }
+
+/* ---- Avatar ---- */
+
+.avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 11px;
+    font-weight: 600;
+    color: #fff;
+    flex-shrink: 0;
+}
+
+.avatar.sm { width: 26px; height: 26px; font-size: 10px; border-radius: 5px; }
+.avatar.lg { width: 42px; height: 42px; font-size: 15px; border-radius: 10px; }
+
+/* ---- Item body ---- */
+
+.list-item-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.list-item-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.list-item-sub {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.list-item-sub strong { color: var(--text); font-weight: 500; }
+
+/* ---- Item end (right side) ---- */
+
+.list-item-end {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.list-item-time {
+    font-size: 11px;
+    color: var(--muted);
+    white-space: nowrap;
+}
+
+/* ---- Badge ---- */
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.badge.blue   { background: rgba(79,142,247,.14);  color: var(--accent); }
+.badge.purple { background: rgba(124,92,252,.14);  color: var(--accent2); }
+.badge.green  { background: rgba(34,201,122,.14);  color: var(--success); }
+.badge.orange { background: rgba(245,166,35,.14);  color: var(--warning); }
+.badge.red    { background: rgba(242,95,92,.14);   color: var(--danger); }
+.badge.muted  { background: rgba(107,113,144,.14); color: var(--muted); }

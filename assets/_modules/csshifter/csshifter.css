@@ -1,0 +1,373 @@
+/* VARS */
+:root {
+    --primary: #0070f3;
+    --secondary: #666;
+    --success: #28a745;
+    --danger: #dc3545;
+    --warning: #d1ac16;
+    --dark: #121212;
+    --light: #bfbfbf;
+
+    --bg: #131313;
+    --text: #bbb;
+
+    --font-base: 'Inter', sans-serif;
+
+    --space-xs: 0.25rem;
+    --space-sm: 0.5rem;
+    --space-md: 1rem;
+    --space-lg: 2rem;
+    --space-xl: 4rem;
+
+    --radius: 0.5rem;
+    
+    --shadow-light: 0 2px 6px rgba(0,0,0,0.1);
+    --shadow-dark: 0 2px 6px rgba(255,255,255,0.1);
+}
+
+/* RESET */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-base, 'Inter', sans-serif);
+    line-height: 1.5;
+    background: var(--bg, #fff);
+    color: var(--text, #333);
+}
+
+/* SIZING */
+.ht.full { height: 100vh; }
+.mht.full { min-height: 100vh; }
+
+.w-10 { width: 10%; }
+.w-20 { width: 20%; }
+.w-25 { width: 25%; }
+.w-30 { width: 30%; }
+.w-40 { width: 40%; }
+.w-50 { width: 50%; }
+.w-60 { width: 60%; }
+.w-70 { width: 70%; }
+.w-75 { width: 75%; }
+.w-80 { width: 80%; }
+.w-90 { width: 90%; }
+.w-100 { width: 100%; }
+
+/* TEXT */
+.left { text-align: left; }
+.center { text-align: center; }
+.right { text-align: right; }
+.text.sm { font-size: 0.875rem; }
+.text.lg { font-size: 1.25rem; }
+.bold { font-weight: 700; }
+.italic { font-style: italic; }
+
+/* UTILITIES */
+.mt-sm { margin-top: var(--space-sm); }
+.mt-md { margin-top: var(--space-md); }
+.mt-lg { margin-top: var(--space-lg); }
+.mb-sm { margin-bottom: var(--space-sm); }
+.mb-md { margin-bottom: var(--space-md); }
+.mb-lg { margin-bottom: var(--space-lg); }
+.ms-sm { margin-left: var(--space-sm); margin-right: var(--space-sm); }
+.ms-md { margin-left: var(--space-md); margin-right: var(--space-md); }
+.ms-lg { margin-left: var(--space-lg); margin-right: var(--space-lg); }
+.p-sm { padding: var(--space-sm); }
+.p-md { padding: var(--space-md); }
+.p-lg { padding: var(--space-lg); }
+
+.gap-xs { gap: var(--space-xs); }
+.gap-sm { gap: var(--space-sm); }
+.gap-md { gap: var(--space-md); }
+.gap-lg { gap: var(--space-lg); }
+.gap-xl { gap: var(--space-xl); }
+
+.rounded-sm { border-radius: 0.5em; }
+.rounded-md { border-radius: 1em; }
+.rounded-lg { border-radius: 2em; }
+.circled { border-radius: 50%; }
+
+/* COLOR */
+.clr-primary { color: var(--primary); }
+.clr-secondary { color: var(--secondary); }
+.clr-success { color: var(--success); }
+.clr-danger { color: var(--danger); }
+.clr-warning { color: var(--warning); }
+.clr-dark { color: var(--dark); }
+.clr-light { color: var(--light); }
+
+.text { color: var(--text); }
+
+.light.shadow { box-shadow: var(--shadow-light); }
+.dark.shadow { box-shadow: var(--shadow-dark); }
+
+/* GRID */
+.grid { display: grid; }
+
+.row { grid-template-columns: repeat(12, 1fr); }
+
+[class^="col-"] { grid-column: span 12; } /* mobile par défaut */
+
+.col-1 { grid-column: span 1; }
+.col-2 { grid-column: span 2; }
+.col-3 { grid-column: span 3; }
+.col-4 { grid-column: span 4; }
+.col-6 { grid-column: span 6; }
+.col-12 { grid-column: span 12; }
+
+@media (min-width: 768px) {
+    .col-md-1 { grid-column: span 1; }
+    .col-md-2 { grid-column: span 2; }
+    .col-md-3 { grid-column: span 3; }
+    .col-md-4 { grid-column: span 4; }
+    .col-md-6 { grid-column: span 6; }
+    .col-md-12 { grid-column: span 12; }
+}
+
+@media (min-width: 1024px) {
+    .col-lg-1 { grid-column: span 1; }
+    .col-lg-2 { grid-column: span 2; }
+    .col-lg-3 { grid-column: span 3; }
+    .col-lg-4 { grid-column: span 4; }
+    .col-lg-6 { grid-column: span 6; }
+    .col-lg-12 { grid-column: span 12; }
+}
+
+/* ANIMATION */
+.anim {
+    transition: transform 0.3s ease, shadow 0.3s ease;
+}
+
+.anim-lift:hover {
+    transform: translateY(-5px);
+}
+
+.anim-shadow-light:hover {
+    box-shadow: var(--shadow-light);
+}
+.anim-shadow-dark:hover {
+    box-shadow: var(--shadow-dark);
+}
+
+/* FLEX */
+.flex { display: flex; }
+
+.flex-row { flex-direction: row; }
+.flex-col { flex-direction: column; }
+.flex-revrow { flex-direction: row-reverse; }
+.flex-revcol { flex-direction: column-reverse; }
+
+.flex-center { align-items: center; justify-content: center; }
+.flex-between { justify-content: space-between; }
+.flex-around { justify-content: space-around; }
+.flex-evenly { justify-content: space-evenly; }
+
+.flex-1 { flex-basis: 0; flex-grow: 1; }
+.flex-2 { flex-basis: 0; flex-grow: 2; }
+.flex-4 { flex-basis: 0; flex-grow: 4; }
+.flex-6 { flex-basis: 0; flex-grow: 6; }
+.flex-8 { flex-basis: 0; flex-grow: 8; }
+.flex-12 { flex-basis: 0; flex-grow: 12; }
+
+/* CARD */
+.card-box {
+    display: flex;
+}
+
+.card {
+    position: relative;
+    display: flex;
+    background-color: rgba(26, 26, 26, 1);
+}
+
+.card .card-image {
+    padding: 5px
+}
+.card .card-image img {
+    width: 100%;
+}
+
+.card .card-title {
+    font-weight: 800;
+    padding: 5px
+}
+
+.card .card-content {
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 5px
+}
+
+.card .card-supp {
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 5px
+}
+
+.card .card-supp a {
+    text-decoration-line: none;
+}
+.card .card-supp a:hover {
+    text-decoration-line: underline;
+}
+
+.card .card-buttons {
+    display: none;
+    justify-content: center;
+    padding: 5px;
+    flex-direction: row;
+}
+
+.card:hover > .card-buttons {
+    display: flex;
+}
+
+.card .card-buttons.over {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+.card .card-buttons.over.top-left {
+    top: 5px;
+    left: 5px;
+}
+.card .card-buttons.over.top-right {
+    top: 5px;
+    right: 5px;
+}
+.card .card-buttons.over.bottom-left {
+    bottom: 5px;
+    left: 5px
+}
+.card .card-buttons.over.bottom-right {
+    bottom: 5px;
+    right: 5px
+}
+.card .card-buttons.over.attached-top {
+    top: 5px;
+    left: 5px;
+    right: 5px;
+}
+.card .card-buttons.over.attached-bottom {
+    bottom: 5px;
+    left: 5px;
+    right: 5px;
+}
+
+.card .card-buttons.over.sm {
+    min-height: 50px;
+}
+.card .card-buttons.over.sm button {
+    width: 40px;
+    height: 40px;
+}
+.card .card-buttons.over.md {
+    min-height: 75px;
+}
+.card .card-buttons.over.md button {
+    width: 60px;
+    height: 60px;
+}
+.card .card-buttons.over.lg {
+    min-height: 100px;
+}
+.card .card-buttons.over.lg button {
+    width: 80px;
+    height: 80px;
+}
+
+/* BUTTON */
+.btn {
+    background-color: black;
+    border: 0px solid black;
+}
+.btn.primary {
+    background-color: var(--primary);
+}
+.btn.secondary {
+    background-color: var(--secondary);
+}
+.btn.success {
+    background-color: var(--success);
+}
+.btn.danger {
+    background-color: var(--danger);
+}
+.btn.warning {
+    background-color: var(--warning);
+}
+.btn.dark {
+    background-color: var(--dark);
+}
+.btn.light {
+    background-color: var(--light);
+}
+
+.btn.outline {
+    background-color: transparent;
+    border: 1px solid black;
+}
+.btn.outline.primary {
+    border: 1px solid var(--primary);
+}
+.btn.outline.secondary {
+    border: 1px solid var(--secondary);
+}
+.btn.outline.success {
+    border: 1px solid var(--success);
+}
+.btn.outline.danger {
+    border: 1px solid var(--danger);
+}
+.btn.outline.warning {
+    border: 1px solid var(--warning);
+}
+.btn.outline.dark {
+    border: 1px solid var(--dark);
+}
+.btn.outline.light {
+    border: 1px solid var(--light);
+}
+
+.btn.square {
+    aspect-ratio: 1/1;
+}
+
+/* BUTTON GROUP */
+.btn-group button.btn {
+    border-radius: 0;
+}
+
+.btn-group button.btn.rounded-sm:first-child {
+    border-top-left-radius: 0.5em;
+    border-bottom-left-radius: 0.5em;
+}
+.btn-group button.btn.rounded-sm:last-child {
+    border-top-right-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+}
+
+.btn-group button.btn.rounded-md:first-child {
+    border-top-left-radius: 1em;
+    border-bottom-left-radius: 1em;
+}
+.btn-group button.btn.rounded-md:last-child {
+    border-top-right-radius: 1em;
+    border-bottom-right-radius: 1em;
+}
+
+.btn-group button.btn.rounded-lg:first-child {
+    border-top-left-radius: 2em;
+    border-bottom-left-radius: 2em;
+}
+.btn-group button.btn.rounded-lg:last-child {
+    border-top-right-radius: 2em;
+    border-bottom-right-radius: 2em;
+}

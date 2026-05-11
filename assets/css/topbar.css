@@ -1,0 +1,96 @@
+#topbar {
+    height: 60px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 28px;
+    gap: 16px;
+    position: sticky;
+    top: 0;
+    z-index: 90;
+    flex-shrink: 0;
+}
+
+.topbar-title {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 600;
+    flex: 1;
+}
+
+.topbar-search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 7px 12px;
+    font-size: 13px;
+    color: var(--muted);
+    width: 210px;
+    cursor: text;
+    transition: border-color .15s;
+}
+
+.topbar-search:focus-within {
+    border-color: var(--accent);
+    color: var(--text);
+}
+
+.topbar-search input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text);
+    font-size: 13px;
+    font-family: var(--font-main);
+    width: 100%;
+}
+
+.topbar-search input::placeholder { color: var(--muted); }
+
+.topbar-search i { font-size: 14px; flex-shrink: 0; }
+
+.topbar-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: var(--radius-sm);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--muted);
+    font-size: 17px;
+    position: relative;
+    transition: color .15s, border-color .15s;
+}
+
+.topbar-btn:hover { color: var(--text); border-color: rgba(79,142,247,.4); }
+
+.notif-dot {
+    position: absolute;
+    top: 7px; right: 7px;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--danger);
+    border: 1.5px solid var(--surface);
+}
+
+.topbar-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: var(--radius-sm);
+    background: linear-gradient(135deg, var(--accent2), var(--accent));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+}

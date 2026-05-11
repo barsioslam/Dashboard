@@ -1,0 +1,23 @@
+:root {
+  --sidebar-w: 230px;
+
+  --accent: #4f8ef7;
+  --accent2: #7c5cfc;
+  --success: #22c97a;
+  --warning: #f5a623;
+  --danger: #f25f5c;
+
+  --bg: #0d0f14;
+  --surface: #13161e;
+  --surface2: #1a1e28;
+  --border: #232737;
+  --text: #e2e4ed;
+  --muted: #6b7190;
+
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-lg: 14px;
+
+  --font-main: "Ubuntu", sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+}

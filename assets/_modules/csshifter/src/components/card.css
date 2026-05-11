@@ -1,0 +1,103 @@
+/* CARD */
+.card-box {
+    display: flex;
+}
+
+.card {
+    position: relative;
+    display: flex;
+    background-color: rgba(26, 26, 26, 1);
+}
+
+.card .card-image {
+    padding: 5px
+}
+.card .card-image img {
+    width: 100%;
+}
+
+.card .card-title {
+    font-weight: 800;
+    padding: 5px
+}
+
+.card .card-content {
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 5px
+}
+
+.card .card-supp {
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 5px
+}
+
+.card .card-supp a {
+    text-decoration-line: none;
+}
+.card .card-supp a:hover {
+    text-decoration-line: underline;
+}
+
+.card .card-buttons {
+    display: none;
+    justify-content: center;
+    padding: 5px;
+    flex-direction: row;
+}
+
+.card:hover > .card-buttons {
+    display: flex;
+}
+
+.card .card-buttons.over {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+.card .card-buttons.over.top-left {
+    top: 5px;
+    left: 5px;
+}
+.card .card-buttons.over.top-right {
+    top: 5px;
+    right: 5px;
+}
+.card .card-buttons.over.bottom-left {
+    bottom: 5px;
+    left: 5px
+}
+.card .card-buttons.over.bottom-right {
+    bottom: 5px;
+    right: 5px
+}
+.card .card-buttons.over.attached-top {
+    top: 5px;
+    left: 5px;
+    right: 5px;
+}
+.card .card-buttons.over.attached-bottom {
+    bottom: 5px;
+    left: 5px;
+    right: 5px;
+}
+
+.card .card-buttons.over.sm {
+    min-height: 50px;
+}
+.card .card-buttons.over.sm button {
+    width: 40px;
+    height: 40px;
+}
+.card .card-buttons.over.md {
+    min-height: 75px;
+}
+.card .card-buttons.over.md button {
+    width: 60px;
+    height: 60px;
+}
+.card .card-buttons.over.lg {
+    min-height: 100px;
+}
+.card .card-buttons.over.lg button {
+    width: 80px;
+    height: 80px;
+}

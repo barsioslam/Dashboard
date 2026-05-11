@@ -1,0 +1,15 @@
+/* ANIMATION */
+.anim {
+    transition: transform 0.3s ease, shadow 0.3s ease;
+}
+
+.anim-lift:hover {
+    transform: translateY(-5px);
+}
+
+.anim-shadow-light:hover {
+    box-shadow: var(--shadow-light);
+}
+.anim-shadow-dark:hover {
+    box-shadow: var(--shadow-dark);
+}

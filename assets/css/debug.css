@@ -1,0 +1,53 @@
+#debug {
+    position: fixed;
+    top: 5px;
+    bottom: 5px;
+    left: 5px;
+    right: 5px;
+    border: 1px solid rgba(150, 150, 150, 1);
+    border-radius: 8px;
+    padding: 10px;
+    background-color: rgba(20, 20, 20, 1);
+    font-family: monospace;
+    font-size: 12px;
+    overflow-y: auto;
+    z-index: 999999;
+    display: none;
+    flex-direction: column;
+}
+
+#debug h2 {
+    margin: 0;
+    margin-bottom: 10px;
+    font-size: 16px;
+    text-align: center;
+    color: #0F0;
+}
+
+#debug .log-entry {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+#debug .log-entry .log{
+    padding: 5px;
+    background-color: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.6);
+}
+#debug .log-entry .log:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 1);
+}
+#debug .log-entry .log.info span {
+    color: rgb(0, 72, 255);
+}
+#debug .log-entry .log.success span {
+    color: rgb(17, 255, 0);
+}
+#debug .log-entry .log.warning span {
+    color: rgb(255, 221, 0);
+}
+#debug .log-entry .log.error span {
+    color: rgb(255, 0, 0);
+}

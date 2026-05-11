@@ -1,0 +1,13 @@
+/* COLOR */
+.clr-primary { color: var(--primary); }
+.clr-secondary { color: var(--secondary); }
+.clr-success { color: var(--success); }
+.clr-danger { color: var(--danger); }
+.clr-warning { color: var(--warning); }
+.clr-dark { color: var(--dark); }
+.clr-light { color: var(--light); }
+
+.text { color: var(--text); }
+
+.light.shadow { box-shadow: var(--shadow-light); }
+.dark.shadow { box-shadow: var(--shadow-dark); }

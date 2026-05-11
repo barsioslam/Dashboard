@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <!-- CSS -->
+        <link rel="stylesheet" href="src/_variables.css">
+        <link rel="stylesheet" href="src/_reset.css">
+        <link rel="stylesheet" href="src/_color.css">
+        <link rel="stylesheet" href="src/_utilities.css">
+        <link rel="stylesheet" href="src/_text.css">
+        <link rel="stylesheet" href="src/_sizing.css">
+        <link rel="stylesheet" href="src/_flex.css">
+        <link rel="stylesheet" href="src/_grid.css">
+        <link rel="stylesheet" href="src/components/button.css">
+        <!-- NOUVEAU TRUC -->
+        <link rel="stylesheet" href="src/components/TonNouveauTruc.css">
+    </head>
+    <body>
+<form method="GET">
+    <!-- TÊTE -->
+    <h2 class="form-title"></h2>
+    <!-- //// -->
+
+    <!-- CONTENU -->
+
+    <!-- exemple très basique -->
+    <label for="idinput">Exemple 1</label>
+    <input id="idinput" type="text">
+
+    <!-- exemple + propre -->
+    <div class="form-box">
+        <label for="idinput2">Exemple 2</label>
+        <input id="idinput2" type="text">
+    </div>
+
+    <!-- exemple avec multiples inputs -->
+    <div class="form-box">
+        <label for="idinput3">Exemple 3</label>
+        <div class="inputs">
+            <input id="idinput3" type="text">
+            <input id="idinput4" type="text">
+        </div>
+    </div>
+
+    <!-- exemple avec mutiples input boxes -->
+    <div class="form-box-multiple">
+        <div class="form-box">
+            <label for="idinput5"></label>
+            <input type="text" id="idinput5">
+        </div>
+        <div class="form-box">
+            <label for="idinput6"></label>
+            <input type="text" id="idinput6">
+        </div>
+    </div>
+
+    <!-- /////// -->
+
+    <!-- PIED -->
+    <input class="btn" type="submit" value="">
+    <!-- //// -->
+</form>
+    </body>
+</html>
