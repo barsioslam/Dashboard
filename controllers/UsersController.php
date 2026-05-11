@@ -31,13 +31,13 @@ class UsersController {
     public function list(): void {
         $search  = trim($_GET['q']      ?? '');
         $status  = trim($_GET['status'] ?? '');
-        $page    = max(1, (int) ($_GET['page'] ?? 1));
+        $userspage    = max(1, (int) ($_GET['page'] ?? 1));
         $perPage = 20;
-        $offset  = ($page - 1) * $perPage;
+        $offset  = ($userspage - 1) * $perPage;
 
         $total = $this->userModel->countFiltered($search, $status);
         $users = $this->userModel->getAllWithRoles($perPage, $offset, $search, $status);
-        $pages = max(1, (int) ceil($total / $perPage));
+        $userspage = max(1, (int) ceil($total / $perPage));
 
         $pageData = [
             'title'          => 'Utilisateurs — TaderLafe',
@@ -49,7 +49,7 @@ class UsersController {
         ];
 
         new Genfile('users/list', $pageData, compact(
-            'users', 'total', 'search', 'status', 'page', 'pages'
+            'users', 'total', 'search', 'status', 'userspage', 'userspage'
         ));
     }
 
