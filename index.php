@@ -69,25 +69,30 @@ if (isset($_GET['lang'])) {
     $_SESSION['lang'] = $langCode;
 } elseif (isset($_SESSION['lang'])) {
 
-    $urlPart = $_GET['url'] ?? '';
+    $langCode = $_SESSION['lang'];
 
-    if ($urlPart == 'index.php') {
-        $urlPart = '';
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        $urlPart = $_GET['url'] ?? '';
+
+        if ($urlPart == 'index.php') {
+            $urlPart = '';
+        }
+
+        $query = $_GET;
+        unset($query['url'], $query['lang']);
+
+        $queryString = http_build_query($query);
+
+        $redirect = '/' . $langCode . '/' . $urlPart;
+
+        if (!empty($queryString)) {
+            $redirect .= '?' . $queryString;
+        }
+
+        header('Location: ' . $redirect);
+        exit;
     }
 
-    $query = $_GET;
-    unset($query['url'], $query['lang']);
-
-    $queryString = http_build_query($query);
-
-    $redirect = '/' . $_SESSION['lang'] . '/' . $urlPart;
-
-    if (!empty($queryString)) {
-        $redirect .= '?' . $queryString;
-    }
-
-    header('Location: ' . $redirect);
-    exit;
 } else {
     $langCode = 'en'; // langue par défaut
     $_SESSION['lang'] = $langCode;

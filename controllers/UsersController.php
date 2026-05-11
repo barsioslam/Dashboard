@@ -87,10 +87,10 @@ class UsersController {
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $input = [
-                'first_name' => trim($_POST['first_name'] ?? ''),
-                'last_name'  => trim($_POST['last_name']  ?? ''),
-                'username'   => trim($_POST['username']   ?? ''),
-                'email'      => trim($_POST['email']      ?? ''),
+                'first_name' => trim($_POST['first_name']  ?? ''),
+                'last_name'  => trim($_POST['last_name']   ?? ''),
+                'username'   => trim($_POST['username']    ?? ''),
+                'email'      => trim($_POST['email']       ?? ''),
                 'password'   => $_POST['password']         ?? '',
                 'confirm'    => $_POST['confirm_password'] ?? '',
                 'role_id'    => (int) ($_POST['role_id']   ?? 0),
