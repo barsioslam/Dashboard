@@ -369,3 +369,181 @@
     letter-spacing: 0.12em;
     word-break: break-all;
 }
+
+/* ---- Sessions actives ---- */
+
+.session-empty {
+    font-size: 13px;
+    color: var(--muted);
+    padding: 4px 0;
+    margin: 0;
+}
+
+.session-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.session-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--border);
+    transition: background .15s;
+}
+
+.session-item:first-child { padding-top: 0; }
+.session-item:last-child  { border-bottom: none; padding-bottom: 0; }
+
+/* Appareil */
+
+.session-device {
+    position: relative;
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-sm);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    color: var(--muted);
+    flex-shrink: 0;
+    transition: background .15s, border-color .15s, color .15s;
+}
+
+.session-item.is-current .session-device {
+    background: rgba(79, 142, 247, .1);
+    border-color: rgba(79, 142, 247, .35);
+    color: var(--accent);
+}
+
+/* Indicateur d'activité (point coloré en bas à droite) */
+
+.session-status-dot {
+    position: absolute;
+    bottom: -3px;
+    right: -3px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    border: 2px solid var(--surface);
+}
+
+.session-status-dot.online { background: var(--success); }
+.session-status-dot.recent { background: var(--warning); }
+.session-status-dot.idle   { background: var(--muted); }
+
+/* Corps */
+
+.session-body {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.session-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.session-os {
+    color: var(--muted);
+    font-weight: 400;
+}
+
+.session-badge {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 100px;
+    background: rgba(79, 142, 247, .12);
+    color: var(--accent);
+    border: 1px solid rgba(79, 142, 247, .3);
+    letter-spacing: 0.03em;
+    line-height: 1.6;
+}
+
+.session-sub {
+    font-size: 11px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-wrap: wrap;
+    line-height: 1.4;
+}
+
+.session-sub i { font-size: 11px; opacity: .7; }
+
+.session-dot {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--border);
+    flex-shrink: 0;
+}
+
+/* Action (colonne droite) */
+
+.session-action { flex-shrink: 0; }
+
+.session-current-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: var(--radius-sm);
+    background: rgba(79, 142, 247, .1);
+    color: var(--accent);
+    font-size: 13px;
+}
+
+.session-revoke-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: var(--radius-sm);
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 13px;
+    font-family: var(--font-main);
+    transition: background .15s, border-color .15s, color .15s;
+}
+
+.session-revoke-btn:hover {
+    background: rgba(242, 95, 92, .1);
+    border-color: rgba(242, 95, 92, .4);
+    color: var(--danger);
+}
+
+/* Footer (compteur + bouton global) */
+
+.session-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+}
+
+.session-footer-info {
+    font-size: 11px;
+    color: var(--muted);
+}

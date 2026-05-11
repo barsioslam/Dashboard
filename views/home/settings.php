@@ -230,9 +230,6 @@ $currentToken   = $currentToken   ?? '';
             <?php endif; ?>
 
             <?php
-            $activeSessions = $activeSessions ?? [];
-            $currentToken   = $currentToken   ?? '';
-
             $deviceIcon = static function(string $device): string {
                 return match ($device) {
                     'Mobile'   => 'ti-device-mobile',
@@ -241,71 +238,95 @@ $currentToken   = $currentToken   ?? '';
                 };
             };
 
-            function sessionAge(int $ts): string {
+            $activityStatus = static function(int $ts): string {
                 $diff = time() - $ts;
-                if ($diff < 60)    return 'à l\'instant';
-                if ($diff < 3600)  return 'il y a ' . floor($diff / 60) . ' min';
-                if ($diff < 86400) return 'il y a ' . floor($diff / 3600) . 'h';
-                return 'il y a ' . floor($diff / 86400) . 'j';
+                if ($diff < 300)   return 'online';
+                if ($diff < 3600)  return 'recent';
+                return 'idle';
+            };
+
+            if (!function_exists('sessionAge')) {
+                function sessionAge(int $ts): string {
+                    $diff = time() - $ts;
+                    if ($diff < 60)    return 'à l\'instant';
+                    if ($diff < 3600)  return 'il y a ' . floor($diff / 60) . ' min';
+                    if ($diff < 86400) return 'il y a ' . floor($diff / 3600) . 'h';
+                    return 'il y a ' . floor($diff / 86400) . 'j';
+                }
             }
 
-            $otherSessions = array_filter($activeSessions, fn($s) => $s['token'] !== $currentToken);
+            $otherCount = count(array_filter($activeSessions, fn($s) => $s['token'] !== $currentToken));
             ?>
 
             <?php if (empty($activeSessions)): ?>
-            <p style="color:var(--muted);padding:8px 0">Aucune session enregistrée.</p>
+            <p class="session-empty">Aucune session enregistrée.</p>
             <?php else: ?>
 
-            <div class="sessions-list">
+            <div class="session-list">
                 <?php foreach ($activeSessions as $s):
                     $isCurrent = $s['token'] === $currentToken;
+                    $status    = $activityStatus((int)$s['last_activity']);
                 ?>
-                <div class="session-row <?= $isCurrent ? 'session-current' : '' ?>">
-                    <div class="session-icon">
+                <div class="session-item <?= $isCurrent ? 'is-current' : '' ?>">
+
+                    <!-- Icône appareil -->
+                    <div class="session-device">
                         <i class="ti <?= $deviceIcon($s['device']) ?>"></i>
+                        <span class="session-status-dot <?= $status ?>"></span>
                     </div>
-                    <div class="session-info">
-                        <div class="session-name">
-                            <?= htmlspecialchars($s['browser']) ?>
-                            <span class="session-sep">·</span>
-                            <?= htmlspecialchars($s['os']) ?>
+
+                    <!-- Infos principales -->
+                    <div class="session-body">
+                        <div class="session-title">
+                            <span><?= htmlspecialchars($s['browser']) ?></span>
+                            <span class="session-os">sur <?= htmlspecialchars($s['os']) ?></span>
                             <?php if ($isCurrent): ?>
-                            <span class="session-badge-current">Actuelle</span>
+                            <span class="session-badge">Actuelle</span>
                             <?php endif; ?>
                         </div>
-                        <div class="session-meta">
-                            <span title="Adresse IP"><i class="ti ti-map-pin"></i> <?= htmlspecialchars($s['ip']) ?></span>
+                        <div class="session-sub">
+                            <i class="ti ti-map-pin"></i>
+                            <span><?= htmlspecialchars($s['ip']) ?></span>
                             <?php if (!empty($s['country'])): ?>
-                            <span class="session-sep">·</span>
+                            <span class="session-dot"></span>
                             <span><?= htmlspecialchars($s['country']) ?></span>
                             <?php endif; ?>
-                            <span class="session-sep">·</span>
-                            <span title="Dernière activité"><i class="ti ti-clock"></i> <?= sessionAge((int)$s['last_activity']) ?></span>
-                            <span class="session-sep">·</span>
-                            <span title="Connecté le" style="color:var(--muted)">depuis le <?= date('d/m/Y H:i', (int)$s['created_at']) ?></span>
+                            <span class="session-dot"></span>
+                            <i class="ti ti-clock"></i>
+                            <span><?= sessionAge((int)$s['last_activity']) ?></span>
+                            <span class="session-dot"></span>
+                            <span>connecté le <?= date('d/m/Y à H:i', (int)$s['created_at']) ?></span>
                         </div>
                     </div>
-                    <div class="session-actions">
-                        <?php if (!$isCurrent): ?>
+
+                    <!-- Action -->
+                    <div class="session-action">
+                        <?php if ($isCurrent): ?>
+                        <span class="session-current-label"><i class="ti ti-check"></i></span>
+                        <?php else: ?>
                         <form method="POST">
                             <input type="hidden" name="_section" value="session_revoke">
                             <input type="hidden" name="token" value="<?= htmlspecialchars($s['token']) ?>">
-                            <button type="submit" class="btn-danger-sm" title="Révoquer cette session">
-                                <i class="ti ti-logout"></i>
+                            <button type="submit" class="session-revoke-btn" title="Révoquer cette session">
+                                <i class="ti ti-x"></i>
                             </button>
                         </form>
                         <?php endif; ?>
                     </div>
+
                 </div>
                 <?php endforeach; ?>
             </div>
 
-            <?php if (!empty($otherSessions)): ?>
-            <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border)">
+            <?php if ($otherCount > 0): ?>
+            <div class="session-footer">
+                <span class="session-footer-info">
+                    <?= $otherCount ?> autre<?= $otherCount > 1 ? 's' : '' ?> session<?= $otherCount > 1 ? 's' : '' ?> active<?= $otherCount > 1 ? 's' : '' ?>
+                </span>
                 <form method="POST">
                     <input type="hidden" name="_section" value="session_revoke_all">
                     <button type="submit" class="btn-danger">
-                        <i class="ti ti-shield-x"></i> Révoquer toutes les autres sessions
+                        <i class="ti ti-shield-x"></i> Tout révoquer
                     </button>
                 </form>
             </div>
