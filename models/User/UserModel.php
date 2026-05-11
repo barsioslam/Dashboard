@@ -12,8 +12,8 @@ class UserModel extends Model {
     public function register(array $data): int {
         $data['password']       = password_hash($data['password'], PASSWORD_DEFAULT);
         $data['created_at']     = time();
-        $data['is_active']      = $data['is_active'] ?? true;
-        $data['email_verified'] = $data['email_verified'] ?? false;
+        $data['is_active']      = $data['is_active'] ?? 1;
+        $data['email_verified'] = $data['email_verified'] ?? 0;
         return $this->insert($data);
     }
 
