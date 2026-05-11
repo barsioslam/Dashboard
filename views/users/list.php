@@ -29,20 +29,19 @@ $qsBase = $qsBase ? '?' . $qsBase . '&' : '?';
         <!-- Filter tabs -->
         <div class="filter-tabs">
             <a href="/users/list<?= $search ? '?q=' . urlencode($search) : '' ?>"
-               class="filter-tab <?= $status === '' ? 'active' : '' ?>">Tous</a>
+                class="filter-tab <?= $status === '' ? 'active' : '' ?>">Tous</a>
             <a href="/users/list?status=active<?= $search ? '&q=' . urlencode($search) : '' ?>"
-               class="filter-tab <?= $status === 'active' ? 'active' : '' ?>">Actifs</a>
+                class="filter-tab <?= $status === 'active' ? 'active' : '' ?>">Actifs</a>
             <a href="/users/list?status=inactive<?= $search ? '&q=' . urlencode($search) : '' ?>"
-               class="filter-tab <?= $status === 'inactive' ? 'active' : '' ?>">Inactifs</a>
+                class="filter-tab <?= $status === 'inactive' ? 'active' : '' ?>">Inactifs</a>
         </div>
         <!-- Search -->
         <form method="GET" action="/users/list" style="display:flex;align-items:center;gap:6px;">
             <?php if ($status): ?>
             <input type="hidden" name="status" value="<?= htmlspecialchars($status) ?>">
             <?php endif; ?>
-            <input type="search" name="q" class="search-input"
-                   placeholder="Rechercher…"
-                   value="<?= htmlspecialchars($search) ?>">
+            <input type="search" name="q" class="search-input" placeholder="Rechercher…"
+                value="<?= htmlspecialchars($search) ?>">
         </form>
     </div>
 
@@ -119,13 +118,13 @@ $qsBase = $qsBase ? '?' . $qsBase . '&' : '?';
                     <!-- Toggle active -->
                     <form method="POST" action="/users/toggleActive/<?= (int) $u['id'] ?>" style="display:inline;">
                         <button type="submit" class="table-btn <?= $u['is_active'] ? 'orange' : 'green' ?>"
-                                title="<?= $u['is_active'] ? 'Désactiver' : 'Activer' ?>">
+                            title="<?= $u['is_active'] ? 'Désactiver' : 'Activer' ?>">
                             <i class="ti ti-<?= $u['is_active'] ? 'ban' : 'check' ?>"></i>
                         </button>
                     </form>
                     <!-- Delete -->
                     <form method="POST" action="/users/delete/<?= (int) $u['id'] ?>" style="display:inline;"
-                          onsubmit="return confirm('Supprimer cet utilisateur ?')">
+                        onsubmit="return confirm('Supprimer cet utilisateur ?')">
                         <button type="submit" class="table-btn danger">
                             <i class="ti ti-trash"></i>
                         </button>
@@ -138,26 +137,25 @@ $qsBase = $qsBase ? '?' . $qsBase . '&' : '?';
 
     <?php if ($pages > 1): ?>
     <div class="card-footer" style="display:flex;align-items:center;gap:4px;justify-content:center;padding:12px;">
-        <?php if ($page > 1): ?>
-        <a href="/users/list<?= $qsBase ?>page=<?= $page - 1 ?>" class="table-btn">
+        <?php if ($userspage > 1): ?>
+        <a href="/users/list<?= $qsBase ?>page=<?= $userspage - 1 ?>" class="table-btn">
             <i class="ti ti-chevron-left"></i>
         </a>
         <?php endif; ?>
 
         <?php for ($p = 1; $p <= $pages; $p++):
-            if ($p === 1 || $p === $pages || abs($p - $page) <= 2):
+            if ($p === 1 || $p === $pages || abs($p - $userspage) <= 2):
         ?>
-        <a href="/users/list<?= $qsBase ?>page=<?= $p ?>"
-           class="table-btn <?= $p === $page ? 'blue' : '' ?>">
+        <a href="/users/list<?= $qsBase ?>page=<?= $p ?>" class="table-btn <?= $p === $userspage ? 'blue' : '' ?>">
             <?= $p ?>
         </a>
-        <?php elseif (abs($p - $page) === 3): ?>
+        <?php elseif (abs($p - $userspage) === 3): ?>
         <span style="color:var(--muted);padding:0 4px;">…</span>
         <?php endif; ?>
         <?php endfor; ?>
 
-        <?php if ($page < $pages): ?>
-        <a href="/users/list<?= $qsBase ?>page=<?= $page + 1 ?>" class="table-btn">
+        <?php if ($userspage < $pages): ?>
+        <a href="/users/list<?= $qsBase ?>page=<?= $userspage + 1 ?>" class="table-btn">
             <i class="ti ti-chevron-right"></i>
         </a>
         <?php endif; ?>

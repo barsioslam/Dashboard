@@ -39,4 +39,14 @@ class ActivityLogModel extends Model {
         return $this->db->fetchAll();
     }
 
+    public function log(string $action, int $actorId, ?string $current = null, ?string $previous = null): void {
+        $this->insert([
+            'action'        => $action,
+            'user_id'       => $actorId,
+            'current'       => $current,
+            'previous'      => $previous,
+            'activity_date' => time(),
+        ]);
+    }
+
 }

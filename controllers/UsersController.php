@@ -37,7 +37,7 @@ class UsersController {
 
         $total = $this->userModel->countFiltered($search, $status);
         $users = $this->userModel->getAllWithRoles($perPage, $offset, $search, $status);
-        $userspage = max(1, (int) ceil($total / $perPage));
+        $pages = max(1, (int) ceil($total / $perPage));
 
         $pageData = [
             'title'          => 'Utilisateurs — TaderLafe',
@@ -49,7 +49,7 @@ class UsersController {
         ];
 
         new Genfile('users/list', $pageData, compact(
-            'users', 'total', 'search', 'status', 'userspage', 'userspage'
+            'users', 'total', 'search', 'status', 'userspage', 'pages'
         ));
     }
 
@@ -126,6 +126,7 @@ class UsersController {
                 if ($input['role_id'] > 0) {
                     $this->userRoleModel->setRole($newId, $input['role_id']);
                 }
+                (new ActivityLogModel())->log('user_created', $this->currentUserId, $input['username']);
                 header('Location: /users/view/' . $newId);
                 exit;
             }
@@ -152,7 +153,8 @@ class UsersController {
             exit;
         }
 
-        $messages = [];
+        $messages    = [];
+        $prevUsername = $user['username'];
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $username  = trim($_POST['username']    ?? '');
@@ -196,6 +198,7 @@ class UsersController {
                     $_SESSION['first_name'] = $firstName;
                     $_SESSION['last_name']  = $lastName;
                 }
+                (new ActivityLogModel())->log('user_updated', $this->currentUserId, $username, $prevUsername);
                 $messages['success'] = true;
                 $user = $this->userModel->getWithRole($id);
             } else {
@@ -229,9 +232,11 @@ class UsersController {
             header('Location: /users/list');
             exit;
         }
-        if ($this->userModel->exists($id)) {
+        $user = $this->userModel->findById($id);
+        if ($user) {
             $this->userRoleModel->removeForUser($id);
             $this->userModel->delete($id);
+            (new ActivityLogModel())->log('user_deleted', $this->currentUserId, $user['username']);
         }
         header('Location: /users/list');
         exit;
@@ -241,7 +246,10 @@ class UsersController {
         if ($id !== $this->currentUserId) {
             $user = $this->userModel->findById($id);
             if ($user) {
-                $this->userModel->setActive($id, !(bool) $user['is_active']);
+                $newStatus = !(bool) $user['is_active'];
+                $this->userModel->setActive($id, $newStatus);
+                $action = $newStatus ? 'user_activated' : 'user_deactivated';
+                (new ActivityLogModel())->log($action, $this->currentUserId, $user['username']);
             }
         }
         header('Location: /users/list');
