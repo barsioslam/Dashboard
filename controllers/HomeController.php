@@ -8,7 +8,9 @@ use App\Views\Genfile;
 use App\Utils\Checker\AccountChecker;
 use App\Utils\System\SystemStats;
 use App\Utils\Auth\TOTP;
+use App\Utils\SessionManager;
 use Models\User\UserModel;
+use Models\User\UserSessionModel;
 use Models\Project\ProjectModel;
 use Models\Project\BugModel;
 use Models\File\FileModel;
@@ -154,6 +156,23 @@ class HomeController {
                 $userModel->disable2FA($userId);
                 unset($_SESSION['2fa_setup_secret']);
                 $messages['2fa_disabled'] = true;
+
+            } elseif ($_POST['_section'] === 'session_revoke') {
+                $token        = $_POST['token'] ?? '';
+                $sessionModel = new UserSessionModel();
+                if ($token && $token !== ($_SESSION['session_token'] ?? '')) {
+                    $sessionModel->revokeForUser($token, $userId);
+                    $messages['session_revoked'] = true;
+                }
+                header('Location: /home/settings?tab=security');
+                exit;
+
+            } elseif ($_POST['_section'] === 'session_revoke_all') {
+                $currentToken = $_SESSION['session_token'] ?? '';
+                (new UserSessionModel())->revokeAllExcept($currentToken, $userId);
+                $messages['sessions_revoked'] = true;
+                header('Location: /home/settings?tab=security');
+                exit;
             }
         }
 
@@ -162,6 +181,10 @@ class HomeController {
         $tfaSetupUri    = $tfaSetupSecret
             ? TOTP::getOtpAuthUri($tfaSetupSecret, $currentUser['username'] ?? 'user')
             : null;
+
+        $sessionModel   = new UserSessionModel();
+        $activeSessions = $sessionModel->getByUser($userId);
+        $currentToken   = $_SESSION['session_token'] ?? '';
 
         $page = [
             'title'          => 'Paramètres — TaderLafe',
@@ -172,7 +195,11 @@ class HomeController {
             'layout'         => 'dashboard',
         ];
 
-        new Genfile('home/settings', $page, compact('messages', 'currentUser', 'tfaEnabled', 'tfaSetupSecret', 'tfaSetupUri'));
+        new Genfile('home/settings', $page, compact(
+            'messages', 'currentUser',
+            'tfaEnabled', 'tfaSetupSecret', 'tfaSetupUri',
+            'activeSessions', 'currentToken'
+        ));
     }
 
     // -------------------------------------------------------

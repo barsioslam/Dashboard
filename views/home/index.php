@@ -41,7 +41,6 @@ foreach ($monthsMap as $en => $fr) $today = str_replace($en, $fr, $today);
     <h1>Bonjour, <?= htmlspecialchars($_SESSION['username'] ?? '???') ?> 👋</h1>
     <p class="page-sub"><?= $today ?> — Voici un résumé de l'activité</p>
 </div>
-<?php var_dump($_SESSION); ?>
 <!-- STAT CARDS -->
 <div class="stats-grid">
 

@@ -13,6 +13,7 @@ use Models\User\UserModel;
 use App\Utils\Auth\TOTP;
 use App\Utils\Checker\FormChecker;
 use App\Utils\Checker\AccountChecker;
+use App\Utils\SessionManager;
 
 class AuthController {
 
@@ -42,6 +43,7 @@ class AuthController {
                 $_SESSION['first_name'] = $user['first_name'];
                 $_SESSION['last_name']  = $user['last_name'];
                 $_SESSION['email']      = $user['email'];
+                SessionManager::start((int) $user['id']);
                 header('Location: /home/');
                 exit;
             }
@@ -134,6 +136,7 @@ class AuthController {
                 $_SESSION['first_name'] = $user['first_name'] ?? '';
                 $_SESSION['last_name']  = $user['last_name']  ?? '';
                 $_SESSION['email']      = $user['email']      ?? '';
+                SessionManager::start($userId);
                 header('Location: /home/');
                 exit;
             }
@@ -149,6 +152,7 @@ class AuthController {
 
     public function logout() {
         if (AccountChecker::logged()) {
+            SessionManager::destroy();
             session_destroy();
         }
         header('Location: /');

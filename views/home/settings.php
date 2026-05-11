@@ -4,8 +4,13 @@ $username  = htmlspecialchars($currentUser['username']   ?? $_SESSION['username'
 $email     = htmlspecialchars($currentUser['email']      ?? $_SESSION['email']      ?? '');
 $firstName = htmlspecialchars($currentUser['first_name'] ?? $_SESSION['first_name'] ?? '');
 $lastName  = htmlspecialchars($currentUser['last_name']  ?? $_SESSION['last_name']  ?? '');
-$tab       = $_GET['tab'] ?? 'account';
-$messages  = $messages ?? [];
+$tab            = $_GET['tab'] ?? 'account';
+$messages       = $messages       ?? [];
+$tfaEnabled     = $tfaEnabled     ?? false;
+$tfaSetupSecret = $tfaSetupSecret ?? null;
+$tfaSetupUri    = $tfaSetupUri    ?? null;
+$activeSessions = $activeSessions ?? [];
+$currentToken   = $currentToken   ?? '';
 ?>
 
 <!-- PAGE HEADER -->
@@ -213,17 +218,100 @@ $messages  = $messages ?? [];
             </form>
         </div>
 
+        <!-- Sessions actives -->
         <div class="card" style="margin-top:16px">
-            <div class="settings-section-title">Sessions</div>
-            <div class="toggle-row">
-                <div class="toggle-info">
-                    <div class="toggle-label">Révoquer les autres sessions</div>
-                    <div class="toggle-sub">Déconnecte toutes les sessions ouvertes sur d'autres appareils</div>
+            <div class="settings-section-title">Sessions actives</div>
+
+            <?php if (!empty($messages['session_revoked'])): ?>
+            <div class="alert success"><i class="ti ti-circle-check"></i> Session révoquée.</div>
+            <?php endif; ?>
+            <?php if (!empty($messages['sessions_revoked'])): ?>
+            <div class="alert success"><i class="ti ti-circle-check"></i> Toutes les autres sessions ont été révoquées.</div>
+            <?php endif; ?>
+
+            <?php
+            $activeSessions = $activeSessions ?? [];
+            $currentToken   = $currentToken   ?? '';
+
+            $deviceIcon = static function(string $device): string {
+                return match ($device) {
+                    'Mobile'   => 'ti-device-mobile',
+                    'Tablette' => 'ti-device-tablet',
+                    default    => 'ti-device-laptop',
+                };
+            };
+
+            function sessionAge(int $ts): string {
+                $diff = time() - $ts;
+                if ($diff < 60)    return 'à l\'instant';
+                if ($diff < 3600)  return 'il y a ' . floor($diff / 60) . ' min';
+                if ($diff < 86400) return 'il y a ' . floor($diff / 3600) . 'h';
+                return 'il y a ' . floor($diff / 86400) . 'j';
+            }
+
+            $otherSessions = array_filter($activeSessions, fn($s) => $s['token'] !== $currentToken);
+            ?>
+
+            <?php if (empty($activeSessions)): ?>
+            <p style="color:var(--muted);padding:8px 0">Aucune session enregistrée.</p>
+            <?php else: ?>
+
+            <div class="sessions-list">
+                <?php foreach ($activeSessions as $s):
+                    $isCurrent = $s['token'] === $currentToken;
+                ?>
+                <div class="session-row <?= $isCurrent ? 'session-current' : '' ?>">
+                    <div class="session-icon">
+                        <i class="ti <?= $deviceIcon($s['device']) ?>"></i>
+                    </div>
+                    <div class="session-info">
+                        <div class="session-name">
+                            <?= htmlspecialchars($s['browser']) ?>
+                            <span class="session-sep">·</span>
+                            <?= htmlspecialchars($s['os']) ?>
+                            <?php if ($isCurrent): ?>
+                            <span class="session-badge-current">Actuelle</span>
+                            <?php endif; ?>
+                        </div>
+                        <div class="session-meta">
+                            <span title="Adresse IP"><i class="ti ti-map-pin"></i> <?= htmlspecialchars($s['ip']) ?></span>
+                            <?php if (!empty($s['country'])): ?>
+                            <span class="session-sep">·</span>
+                            <span><?= htmlspecialchars($s['country']) ?></span>
+                            <?php endif; ?>
+                            <span class="session-sep">·</span>
+                            <span title="Dernière activité"><i class="ti ti-clock"></i> <?= sessionAge((int)$s['last_activity']) ?></span>
+                            <span class="session-sep">·</span>
+                            <span title="Connecté le" style="color:var(--muted)">depuis le <?= date('d/m/Y H:i', (int)$s['created_at']) ?></span>
+                        </div>
+                    </div>
+                    <div class="session-actions">
+                        <?php if (!$isCurrent): ?>
+                        <form method="POST">
+                            <input type="hidden" name="_section" value="session_revoke">
+                            <input type="hidden" name="token" value="<?= htmlspecialchars($s['token']) ?>">
+                            <button type="submit" class="btn-danger-sm" title="Révoquer cette session">
+                                <i class="ti ti-logout"></i>
+                            </button>
+                        </form>
+                        <?php endif; ?>
+                    </div>
                 </div>
-                <button class="btn-secondary" type="button">
-                    <i class="ti ti-logout"></i> Révoquer
-                </button>
+                <?php endforeach; ?>
             </div>
+
+            <?php if (!empty($otherSessions)): ?>
+            <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border)">
+                <form method="POST">
+                    <input type="hidden" name="_section" value="session_revoke_all">
+                    <button type="submit" class="btn-danger">
+                        <i class="ti ti-shield-x"></i> Révoquer toutes les autres sessions
+                    </button>
+                </form>
+            </div>
+            <?php endif; ?>
+
+            <?php endif; ?>
         </div>
 
         <?php elseif ($tab === 'notifications'): ?>
