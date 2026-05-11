@@ -61,7 +61,7 @@ class UserModel extends Model {
     }
 
     public function setActive(int $id, bool $active): int {
-        return $this->update($id, ['is_active' => $active]);
+        return $this->update($id, ['is_active' => (int)$active]);
     }
 
     public function verifyEmail(int $id): int {
