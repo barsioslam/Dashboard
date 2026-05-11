@@ -44,7 +44,7 @@ class AuthController {
                 $_SESSION['last_name']  = $user['last_name'];
                 $_SESSION['email']      = $user['email'];
                 SessionManager::start((int) $user['id']);
-                header('Location: /home/');
+                header('Location: /home/index');
                 exit;
             }
         }
