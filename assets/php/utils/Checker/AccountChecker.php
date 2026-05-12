@@ -34,6 +34,11 @@ class AccountChecker {
         return self::$cache = true;
     }
 
+    public static function loginUrl(): string {
+        $lang = $_SESSION['lang'] ?? 'en';
+        return '/' . $lang . '/auth/login';
+    }
+
     public static function isAdmin(): bool {
         return true;
     }

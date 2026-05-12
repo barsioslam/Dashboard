@@ -14,7 +14,7 @@ class RolesController {
 
     public function __construct() {
         if (!AccountChecker::logged()) {
-            header('Location: /auth/login');
+            header('Location: ' . AccountChecker::loginUrl());
             exit;
         }
         $this->roleModel = new RoleModel();

@@ -18,6 +18,7 @@ use App\Utils\SessionManager;
 class AuthController {
 
     public function login() {
+
         if (AccountChecker::logged()) {
             header("Location: /home/index");
             exit();
@@ -99,7 +100,7 @@ class AuthController {
                 $userModel = new UserModel();
                 $isValidated = $userModel->register($dataset);
                 if ($isValidated) {
-                    header('Location: /auth/login');
+                    header('Location: ' . AccountChecker::loginUrl());
                     exit;
                 }
             } else {
@@ -117,6 +118,7 @@ class AuthController {
     }
 
     public function TFA() {
+
         if (AccountChecker::logged()) {
             header('Location: /home/index');
             exit;
@@ -125,7 +127,12 @@ class AuthController {
         $messages = [];
         if (FormChecker::formUploaded()) {
             $code      = preg_replace('/\s+/', '', $_POST['code'] ?? '');
-            $userId    = (int) $_SESSION['2fa_pending_user_id'];
+            if (!isset($_SESSION['2fa_pending_user_id'])) {
+                header('Location: ' . AccountChecker::loginUrl());
+                exit;
+            }
+
+            $userId = (int) $_SESSION['2fa_pending_user_id'];
             $userModel = new UserModel();
             $twofa     = $userModel->get2FAApp($userId);
             if ($twofa && TOTP::verify($twofa['secret'], $code)) {
@@ -153,9 +160,14 @@ class AuthController {
     public function logout() {
         if (AccountChecker::logged()) {
             SessionManager::destroy();
-            session_destroy();
         }
-        header('Location: /');
+        $_SESSION = [];
+        if (ini_get('session.use_cookies')) {
+            $p = session_get_cookie_params();
+            setcookie(session_name(), '', time() - 86400, $p['path'], $p['domain'], $p['secure'], $p['httponly']);
+        }
+        session_destroy();
+        header('Location: ' . AccountChecker::loginUrl());
         exit();
     }
 
