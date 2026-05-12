@@ -73,7 +73,7 @@ class FilesController {
         ));
     }
 
-    public function projectFolders(int $projectId): void {
+    public function project(int $projectId): void {
         $projectModel = new ProjectModel();
         $project      = $projectModel->getById($projectId);
         if (!$project) {

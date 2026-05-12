@@ -105,7 +105,7 @@ class ProjectsController {
                     'is_read_only' => $input['is_read_only'],
                     'created_at'  => time(),
                 ]);
-                $this->userProjectModel->addMember($newId, $this->currentUserId);
+                $this->userProjectModel->addMember($newId, $this->currentUserId, true);
                 (new ActivityLogModel())->log('project_created', $this->currentUserId, $input['name']);
                 header('Location: /projects/view/' . $newId);
                 exit;

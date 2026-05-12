@@ -211,9 +211,15 @@ $totalBugs    = array_sum($bugCounts);
                     <?php endif; ?>
                 </div>
                 <div class="cell actions">
+                    <?php if ($m['is_owner']): ?>
+                    <span class="badge orange" style="margin-right:4px;">
+                        <i class="ti ti-crown" style="margin-right:2px;"></i> Owner
+                    </span>
+                    <?php endif; ?>
                     <a href="/users/view/<?= (int) $m['id'] ?>" class="table-btn">
                         <i class="ti ti-eye"></i>
                     </a>
+                    <?php if (!$m['is_owner']): ?>
                     <form method="POST" action="/projects/removeMember/<?= (int) $project['id'] ?>/<?= (int) $m['id'] ?>"
                           style="display:inline;"
                           onsubmit="return confirm('Retirer <?= htmlspecialchars(addslashes($m['username'])) ?> du projet ?')">
@@ -221,6 +227,7 @@ $totalBugs    = array_sum($bugCounts);
                             <i class="ti ti-user-minus"></i>
                         </button>
                     </form>
+                    <?php endif; ?>
                 </div>
             </div>
             <?php endforeach; ?>
